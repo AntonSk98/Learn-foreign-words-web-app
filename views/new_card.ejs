@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Card</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/add_new_card.css">
+    <script src="/scripts/new_card_script.js"></script>
+</head>
+<body>
+    <%- include ('header.ejs') %>
+    <main>
+        <div class="add-new-card">
+            <h1 class="add-new-card__header">Add a new card here!</h1>
+            <hr>
+            <form action="/add_new_card" method="POST" class="add-new-card__form">
+                <div class="add-new-card__basic__container">
+                    <div class="add-new-card__basic">
+                        <label for="title" class="add-new-card__basic__label">Title:</label>
+                        <input type="text" name="title" class="add-new-card__basic__text add-new-card__custom__input" placeholder="Provide a title">
+                    </div>
+                    <div class="add-new-card__basic">
+                        <label for="description" class="add-new-card__basic__label">Description:</label>
+                        <textarea name="description" id="description" rows="5" class="add-new-card__basic__text add-new-card__custom__textarea" placeholder="Write here a short description for your card"></textarea>
+                    </div>
+                </div>
+                <div class="add-new-card__sticker">
+                    <table>
+                        <tbody id="sticker">
+                            <tr>
+                                <th>Word</th>
+                                <th>Translation</th>
+                                <th>Example</th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="add-new-card__sticker__input add-new-card__custom__input" name="word" placeholder="Type here a word"></td>
+                                <td><input type="text" class="add-new-card__sticker__input add-new-card__custom__input" name="translation" placeholder="Here goes the translation"></td>
+                                <td class="add-new-card__sticker__example"><input type="text" class="add-new-card__sticker__input add-new-card__custom__input" name="example" placeholder="Provide an example"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="add-new-card__buttons">
+                    <button type="button" onclick="changeColor()">Add</button>
+                    <button type="submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

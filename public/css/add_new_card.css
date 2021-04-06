@@ -1,0 +1,127 @@
+@import "common.css";
+
+main {
+    margin-top: var(--top-spacing);
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.add-new-card__header {
+    color: var(--custom-blue);
+    margin-bottom: 0;
+}
+
+hr {
+    border: 0px;
+    border-top: 2px solid var(--custom-blue);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+}
+
+.add-new-card {
+    width: var(--container-width);
+    /* background-color: rgba(128, 128, 128, 0.1); */
+    margin: 0 auto;
+}
+
+.add-new-card__form {
+    margin-top: 2rem;
+}
+
+.add-new-card__basic {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.add-new-card__basic__container {
+    width: 50%;
+}
+
+.add-new-card__basic__label {
+    color: var(--custom-blue);
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin-right: 1rem;
+    align-self: center;
+}
+
+.add-new-card__basic__text {
+    width: -webkit-fill-available;;
+    outline: none;
+}
+
+textarea::placeholder {
+    padding: 0.2rem;
+}
+
+.add-new-card__custom__input {
+    outline: none;
+    border: 0px;
+    border-bottom: 2px solid var(--custom-blue);
+}
+
+.add-new-card__custom__textarea {
+    outline: none;
+    border: 2px solid var(--custom-blue);
+    border-radius: 10px;
+}
+
+.add-new-card__sticker {
+    margin-top: 1.5rem;
+    overflow-x: auto;
+}
+
+.add-new-card__sticker table {
+    width: -webkit-fill-available;
+    justify-content: space-between;
+}
+
+.add-new-card__sticker table {
+    justify-content: space-between;
+    border-collapse: collapse;
+}
+
+.add-new-card__sticker table th {
+    font-size: 1.3rem;
+    text-align: left;
+    color: var(--custom-blue);
+    padding-bottom: 1rem;
+}
+
+.add-new-card__sticker table td {
+    padding-right: 1.8rem;
+    padding-bottom: 1.5rem;
+}
+.add-new-card__sticker table td:last-child {
+    padding-right: 0;
+}
+
+.add-new-card__sticker__input {
+    width: -webkit-fill-available;
+}
+
+.add-new-card__sticker__example {
+    width: 50%;
+}
+
+.add-new-card__buttons {
+    margin-top: 0.5rem;
+}
+
+.add-new-card__buttons button {
+    font-size: 1.2rem;
+    background-color: var(--custom-blue);
+    outline: none;
+    border: none;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.add-new-card__buttons button:hover {
+    opacity: 65%;
+}
