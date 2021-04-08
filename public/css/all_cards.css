@@ -1,0 +1,175 @@
+@import "common.css";
+
+abbr {
+    text-decoration: none;
+    cursor: help;
+}
+
+.header {
+    text-align: center;
+}
+
+.all-cards-container {
+    width: var(--container-width);
+    margin: 0 auto;
+}
+.cards-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+}
+
+.card-outline {
+    background-color: var(--custom-blue);
+    border-radius: 20px;
+    margin: 1rem;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    /* media -> width: -webkit-fill-available */
+}
+
+.card-main-content {
+    margin: 1.5rem;
+    border-radius: 20px;
+    /* margin: 1.5rem; */
+    background-color: white;
+}
+
+.card-main-content > h2 {
+    padding-top: 1.5rem;
+    text-align: center;
+    /* color: white; */
+}
+
+.card-main-content > div  {
+    font-size: 1.1rem;
+    margin: 0.5rem 1.5rem;
+    font-weight: bold;
+}
+
+.description > div:first-child {
+    align-self: flex-end;
+}
+
+.card-main-content > div:last-child {
+    padding-bottom: 1.5rem;
+}
+
+.card-main-content > div > span {
+    font-weight: normal;
+}
+
+.card-main-content > .description {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-main-content > .description > span {
+    width: 2rem;
+}
+
+.hidden-text {
+    font-weight: normal;
+    max-width: 12rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.3s;
+}
+
+.hidden-text:hover {
+    color: var(--custom-blue);
+}
+
+.tooltip-container {
+    position: relative;
+}
+
+.tooltip {
+    background-color: lightgray;
+    position: absolute;
+    width: 15rem;
+    text-align: center;
+    bottom: 150%;
+    opacity: 95%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 20px;
+    visibility: hidden;
+}
+
+.tooltip > small {
+    max-height: 10rem;
+    overflow-y: auto;
+    display: block;
+    margin: 0.8rem;
+}
+
+.tooltip::before {
+    content: "";
+    position: absolute;
+    width:0;
+    height:0;
+    top: 100%;
+    left: 50%;
+    margin-left: -0.5rem;
+    border-top: solid 0.5rem lightgray;
+    border-left: solid 0.5rem transparent;
+    border-right: solid 0.5rem transparent;
+    border-bottom: solid 0.5rem transparent;
+    opacity: 95%;
+}
+
+.margin-left {
+    margin-left: 0.3rem;
+}
+
+.card-buttons {
+    margin: 0 1.5rem 1.5rem 1.5rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    /* max-width: 15rem; */
+}
+
+.card-buttons > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-buttons button {
+    width: 8rem;
+    border-radius: 20px;
+    border: none;
+    padding: 0.7rem;
+    margin: 0.5rem;
+    cursor: pointer;
+    outline: none;
+    color: var(--custom-blue);
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.learn-button:hover, .import-button:hover, .edit-button:hover {
+    opacity: 60%;
+}
+
+.remove-button {
+    background-color:#DC3545;
+    color: white !important;
+}
+
+.remove-button:hover {
+    background-color: red;
+}
+
+.archive-button {
+    background-color: #28a745;
+    color: white !important;
+}
+
+.archive-button:hover {
+    background-color: green;
+}
