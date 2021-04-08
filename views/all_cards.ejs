@@ -4,17 +4,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>All cards</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/all_cards.css">
+    <script type="text/javascript" src="/scripts/cards_script.js"></script>
 </head>
 <body>
-    <main>
-        <div class="outline">
-            <div class="card_info">hi</div>
-            <div class="butoons">
-                <button>Learn</button>
-                <button>Edit</button>
-                <button>Import</button>
-                <button>Remove</button>
+    <%- include('header.ejs') %>
+    <main class="outline">
+        <div class="all-cards-container">
+            <h1 class="add-new-card__header header">View all created cards!</h1>
+            <div class="cards-container">
+                <div class="card-outline">
+                    <div class="card-main-content">
+                        <h2>Title</h2>
+                        <div class="description">
+                            <div>Description:</div>
+                            <div class="tooltip-container">
+                                <div id="tooltip" class="tooltip">
+                                    <small>hello world</small>
+                                </div>
+                                <div class="hidden-text margin-left" onclick="hideShowTooltip(0)">Here should be some text which I can't really render</div>
+                            </div>
+                        </div>
+                        <div>
+                            Created at: <span class="margin-left">10.01.2021</span>
+                        </div>
+                        <div>
+                            Progress: <span class="margin-left">8%</span>
+                        </div>
+                        <div>
+                            Last opened: <span class="margin-left">Today</span>
+                        </div>
+                    </div>
+                    <div class="card-buttons">
+                        <div>
+                            <button class="learn-button">Learn</button>
+                            <button class="edit-button">Edit</button>
+                            <button class="import-button">Import</button>
+                        </div>
+                       <div>
+                            <button class="archive-button">Archive</button>
+                            <button class="remove-button">Remove</button>
+                       </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
