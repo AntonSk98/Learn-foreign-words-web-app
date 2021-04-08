@@ -61,7 +61,6 @@ abbr {
 
 .card-main-content > .description {
     display: flex;
-    justify-content: space-between;
 }
 
 .card-main-content > .description > span {
@@ -70,7 +69,8 @@ abbr {
 
 .hidden-text {
     font-weight: normal;
-    max-width: 12rem;
+    width: fit-content;
+    width: 12rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -94,8 +94,8 @@ abbr {
     text-align: center;
     bottom: 150%;
     opacity: 95%;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 100%;
+    transform: translateX(60%);
     border-radius: 20px;
     visibility: hidden;
 }
@@ -103,6 +103,7 @@ abbr {
 .tooltip > small {
     max-height: 10rem;
     overflow-y: auto;
+    word-break: break-all;
     display: block;
     margin: 0.8rem;
 }
@@ -172,4 +173,32 @@ abbr {
 
 .archive-button:hover {
     background-color: green;
+}
+
+.no-cards > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.no-cards > div > span {
+    color: var(--custom-blue);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.no-cards > div > a {
+    background-color: var(--custom-blue);
+    width: max-content;
+    outline: none;
+    border: 0;
+    padding: 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.no-cards > div > a:hover {
+    background-color: blue;
 }

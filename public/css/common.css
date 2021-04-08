@@ -3,3 +3,16 @@
     --custom-blue: #398DC9;
     --container-width: 85%;
 }
+
+main {
+    margin-top: var(--top-spacing);
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.add-new-card__header {
+    color: var(--custom-blue);
+    margin-bottom: 0;
+    text-decoration: underline;
+}
