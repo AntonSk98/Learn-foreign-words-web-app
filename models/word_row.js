@@ -10,15 +10,31 @@ module.exports = class WordRow {
         this.#example = example;
     }
 
-    getWord() {
+    get word() {
         return this.#word;
     }
 
-    getTranslation() {
+    get translation() {
         return this.#translation;
     }
 
-    getExample() {
+    get example() {
         return this.#example
+    }
+
+    set word(word) {
+        this.#word = word;
+    }
+
+    set translation(translation) {
+        return this.#translation = translation;
+    }
+
+    set example(example) {
+        return this.#example = example;
+    }
+
+    toString () {
+        return `\n Word: ${this.#word}; Translation: ${this.#translation}; Example: ${this.#example}`;
     }
 }
