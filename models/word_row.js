@@ -37,4 +37,12 @@ module.exports = class WordRow {
     toString () {
         return `\n Word: ${this.#word}; Translation: ${this.#translation}; Example: ${this.#example}`;
     }
+
+    toJSON() {
+        return {
+            word: this.#word,
+            translation: this.#translation,
+            example: this.#example
+        }
+    }
 }

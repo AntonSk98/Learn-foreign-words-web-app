@@ -28,7 +28,7 @@ const parseInputToCard = inputData => {
             word, inputData.translation[index], inputData.example[index]
         );
     });
-    console.log(card.toString())
+    console.log(card.toJSON());
     card.save(); 
 }
 
