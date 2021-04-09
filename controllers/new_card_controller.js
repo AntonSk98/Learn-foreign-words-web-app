@@ -2,12 +2,15 @@ const WordRow = require('../models/word_row')
 const Card = require('../models/card')
 
 const getAddNewCardPage = (req, res, next) => {
+    const wordRow1 = new WordRow('a', 'b', 'c');
+    res.render('new_card')
     const path = 'add_new_card';
     res.render('new_card', {
         path: path
     })
 }
 
+exports.getAddNewCardPage = getAddNewCardPage;
 const addNewCard = (req, res, next) => {
     const inputData = convertInputDataToArray(req.body);
     if (isFormValid(inputData)) {
