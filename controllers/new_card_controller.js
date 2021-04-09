@@ -1,8 +1,6 @@
 const WordRow = require('../models/word_row')
 const Card = require('../models/card')
 
-const allCardsData = require('./all_cards_controller')
-
 const getAddNewCardPage = (req, res, next) => {
     const path = 'add_new_card';
     res.render('new_card', {
@@ -11,32 +9,39 @@ const getAddNewCardPage = (req, res, next) => {
 }
 
 const addNewCard = (req, res, next) => {
-    allCardsData.allCards.push(parseInputToCard(req.body))
+    const inputData = convertInputDataToArray(req.body);
+    if (isFormValid(inputData)) {
+        parseInputToCard(inputData)
+        res.redirect('/all_cards');
+    }
+    else {
+        res.json('FORM IS INVALID');
+    }
 }
 
 const parseInputToCard = inputData => {
-    inputData = convertInputDataToArray(inputData);
-    if (inputData.title === '' || inputData.description === '' || isSectiondEmpty(inputData.word) || isSectiondEmpty(inputData.translation)) {
-        // TODO you should add some validation here?
-        console.log('THERE ARE EMPTY FIELDS!')
-        return;
-    } // TODO replace if with switch case and make a separate function for the validation...
-    console.log('all is good')
-
-
     const title = inputData.title;
     const description = inputData.description;
-    const card = new Card(title, description);
+    const card = new Card(title, description, new Date().toDateString());
     inputData.word.forEach((word, index) => {
         card.stickers = new WordRow(
             word, inputData.translation[index], inputData.example[index]
         );
     });
     console.log(card.toString())
-    return card;
+    card.save(); 
+}
+
+const isFormValid = inputData => {
+    if (inputData.title === '' || inputData.description === '' || isSectiondEmpty(inputData.word) || isSectiondEmpty(inputData.translation)) {
+        return false;
+    }
+    return true;
 }
 
 const isSectiondEmpty = (section) => {
+    if (section === undefined)
+        return true;
     return section.some(element => element === '')
 }
 

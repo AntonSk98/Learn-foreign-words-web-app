@@ -1,12 +1,16 @@
+cards = []
+
 module.exports = class Card {
 
     #title;
     #description;
     #stickers = [];
+    #createdAt;
 
-    constructor(title, description) {
+    constructor(title, description, createdAt) {
         this.#title = title;
         this.#description = description;
+        this.#createdAt = createdAt;
     }
 
     get title() {
@@ -21,6 +25,10 @@ module.exports = class Card {
         return this.#stickers;
     }
 
+    get createdAt() {
+        return this.#createdAt;
+    }
+
     set title(title) {
         this.#title = title;
     }
@@ -30,7 +38,19 @@ module.exports = class Card {
     }
 
     set stickers(wordRow) {
-        this.#stickers.push(wordRow)
+        this.#stickers.push(wordRow);
+    }
+
+    set createdAt(createdAt) {
+        this.#createdAt = createdAt;
+    }
+
+    save() {
+        cards.push(this)
+    }
+
+    static fetchAll() {
+        return cards;
     }
 
     toString() {

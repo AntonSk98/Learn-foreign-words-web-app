@@ -14,42 +14,48 @@
     <main class="outline">
         <div class="all-cards-container">
             <h1 class="add-new-card__header header">View all created cards!</h1>
-            <div class="cards-container">
-                <div class="card-outline">
-                    <div class="card-main-content">
-                        <h2>Title</h2>
-                        <div class="description">
-                            <div>Description:</div>
-                            <div class="tooltip-container">
-                                <div id="tooltip" class="tooltip">
-                                    <small>hello world</small>
-                                </div>
-                                <div class="hidden-text margin-left" onclick="hideShowTooltip(0)">Here should be some text which I can't really render</div>
-                            </div>
-                        </div>
-                        <div>
-                            Created at: <span class="margin-left">10.01.2021</span>
-                        </div>
-                        <div>
-                            Progress: <span class="margin-left">8%</span>
-                        </div>
-                        <div>
-                            Last opened: <span class="margin-left">Today</span>
-                        </div>
-                    </div>
-                    <div class="card-buttons">
-                        <div>
-                            <button class="learn-button">Learn</button>
-                            <button class="edit-button">Edit</button>
-                            <button class="import-button">Import</button>
-                        </div>
-                       <div>
-                            <button class="archive-button">Archive</button>
-                            <button class="remove-button">Remove</button>
-                       </div>
+            <% if (allCards.length === 0) { %>
+                <div class="no-cards">
+                    <h2>There are no avaialable cards!</h2>
+                    <div>
+                        <span>Start you journey right now!</span>
+                        <a href="/add_new_card">Create your first card...</a>
                     </div>
                 </div>
-            </div>
+            <% } else { %>
+                <div class="cards-container">
+                <% for (card of allCards) { %>
+                    <div class="card-outline">
+                        <div class="card-main-content">
+                            <h2><%=card.title%></h2>
+                            <div class="description">
+                                <div>Description:</div>
+                                <div class="tooltip-container">
+                                    <div id="tooltip" class="tooltip">
+                                        <small><%=card.description%></small>
+                                    </div>
+                                    <div class="hidden-text margin-left" onclick="hideShowTooltip(<%= allCards.indexOf(card) %>)"><%=card.description%></div>
+                                </div>
+                            </div>
+                            <div>
+                                Created at: <span class="margin-left"><%=card.createdAt%></span>
+                            </div>
+                        </div>
+                        <div class="card-buttons">
+                            <div>
+                                <button class="learn-button">Learn</button>
+                                <button class="edit-button">Edit</button>
+                                <button class="import-button">Import</button>
+                            </div>
+                            <div>
+                                <button class="archive-button">Archive</button>
+                                <button class="remove-button">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+                </div>
+            <% } %>
         </div>
     </main>
 </body>
