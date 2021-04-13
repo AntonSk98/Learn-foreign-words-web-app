@@ -9,51 +9,21 @@ const getAddNewCardPage = (req, res, next) => {
 }
 
 const addNewCard = (req, res, next) => {
-    const inputData = convertInputDataToArray(req.body);
-    if (isFormValid(inputData)) {
-        parseInputToCard(inputData)
-        res.redirect('/all_cards');
-    }
-    else {
-        res.json('FORM IS INVALID');
-    }
+    parseBodyToCardObject(req.body)
+    res.status(200).send({result: 'success'})
 }
 
-const parseInputToCard = inputData => {
-    const title = inputData.title;
-    const description = inputData.description;
+const parseBodyToCardObject = body => {
+    const title = body.title;
+    const description = body.description;
     const card = new Card(title, description, new Date().toDateString());
-    inputData.word.forEach((word, index) => {
-        card.stickers = new WordRow(
-            word, inputData.translation[index], inputData.example[index]
-        );
+    body.rows.forEach(row => {
+        card.stickers.push(new WordRow(
+            row.word, row.translation, row.example
+        ))
     });
-    console.log(card.toJSON());
+    
     card.save(); 
-}
-
-const isFormValid = inputData => {
-    if (inputData.title === '' || inputData.description === '' || isSectiondEmpty(inputData.word) || isSectiondEmpty(inputData.translation)) {
-        return false;
-    }
-    return true;
-}
-
-const isSectiondEmpty = (section) => {
-    if (section === undefined)
-        return true;
-    return section.some(element => element === '')
-}
-
-const convertInputDataToArray = inputData => {
-    if (!Array.isArray(inputData.word))
-        inputData.word = [inputData.word]
-    if (!Array.isArray(inputData.translation))
-        inputData.translation = [inputData.translation]
-    if (!Array.isArray(inputData.example))
-        inputData.example = [inputData.example]
-
-    return inputData;
 }
 
 exports.getAddNewCardPage = getAddNewCardPage;

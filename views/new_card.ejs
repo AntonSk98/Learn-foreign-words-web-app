@@ -14,7 +14,7 @@
     <main>
         <div class="add-new-card">
             <h1 class="add-new-card__header">Add a new card here!</h1>
-            <form action="/add_new_card" method="POST" class="add-new-card__form">
+            <form action="/add_new_card" method="POST" class="add-new-card__form" id="submit_form">
                 <div class="add-new-card__basic__container">
                     <div>
                         <div class="add-new-card__basic">
@@ -49,10 +49,42 @@
                 </div>
                 <div class="add-new-card__buttons">
                     <button type="button" onclick="changeColor()">Add</button>
-                    <button type="submit">Save</button>
+                    <button type="button" onclick="submitForm()">Save</button>
                 </div>
             </form>
         </div>
     </main>
 </body>
+<div class="notification-container" id="notification">
+    <div class="notification warning">
+        <h2>Attention!</h2>
+        <span>All rows without the filled out fields 'word' and 'translation' will not be saved!</span>
+        <div>
+            <span>Do you want to continue?</span>
+            <div class="notification-buttons">
+                <button id='save' onclick="stulSubmitForm()">Still save!</button>
+                <button id='edit' onclick="hideWarningNotification()">Edit card</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="notification-success" id="notification-success">
+    The card is successfully saved!
+</div>
+
+<div class="notification-failure" id="notification-failure">
+    Error occurred on the server...
+</div>
 </html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    try {
+        document.styleSheets[0].rules
+    } catch (error) {
+        console.log('i must reload the page :((')
+        document.location.reload()
+    }
+})
+</script>
