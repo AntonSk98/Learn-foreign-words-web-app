@@ -7,7 +7,7 @@
     <title>All cards</title>
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/all_cards.css">
-    <script type="text/javascript" src="/scripts/cards_script.js"></script>
+    <script type="text/javascript" src="/scripts/all_cards_script.js"></script>
 </head>
 <body>
     <%- include('header.ejs') %>
@@ -44,7 +44,7 @@
                         <div class="card-buttons">
                             <div>
                                 <button class="learn-button">Learn</button>
-                                <button class="edit-button">Edit</button>
+                                <button class="edit-button" onclick="editCard(<%= card %>)">Edit</button>
                                 <button class="import-button">Import</button>
                             </div>
                             <div>
