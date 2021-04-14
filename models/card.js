@@ -13,15 +13,19 @@ const getAllCardsFromFile = callback => {
 
 module.exports = class Card {
 
+    #id;
     #title;
     #description;
     #stickers = [];
     #createdAt;
+    #progress;
 
     constructor(title, description, createdAt) {
+        this.id = Math.random();
         this.#title = title;
         this.#description = description;
         this.#createdAt = createdAt;
+        this.#progress = 0;
     }
 
     get title() {
@@ -54,6 +58,22 @@ module.exports = class Card {
 
     set createdAt(createdAt) {
         this.#createdAt = createdAt;
+    }
+
+    increaseProgress() {
+        this.#progress += 5;
+    }
+
+    decreaseProgress() {
+        this.#progress -= 5;
+    }
+
+    setMaxProgress() {
+        this.#progress = 100;
+    }
+
+    resetProgress() {
+        this.#progress = 0;
     }
 
     save() {
