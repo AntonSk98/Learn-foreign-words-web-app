@@ -76,6 +76,10 @@ module.exports = class Card {
         this.#progress = 0;
     }
 
+    setProgress(progress) {
+        this.#progress = progress;
+    }
+
     save() {
         getAllCardsFromFile((cards, pathToFile) => {
             cards.push(this)
