@@ -44,7 +44,10 @@
                         <div class="card-buttons">
                             <div>
                                 <button class="learn-button">Learn</button>
-                                <button class="edit-button" onclick="editCard(<%= card %>)">Edit</button>
+                                <form action="/edit_card/<%= card.id %>", method="POST">
+                                    <!-- <input type="hidden" name="card_id" value="<%= card.id %>"> -->
+                                    <button class="edit-button" type="submit"">Edit</button>
+                                </form>
                                 <button class="import-button">Import</button>
                             </div>
                             <div>

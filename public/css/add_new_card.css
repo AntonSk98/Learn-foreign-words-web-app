@@ -76,13 +76,12 @@ textarea::placeholder {
 
 .add-new-card__sticker table {
     width: -webkit-fill-available;
-    justify-content: space-between;
 }
 
-.add-new-card__sticker table {
+/* .add-new-card__sticker table {
     justify-content: space-between;
     border-collapse: collapse;
-}
+} */
 
 .add-new-card__sticker table th {
     font-size: 1.3rem;
@@ -104,7 +103,7 @@ textarea::placeholder {
 }
 
 .add-new-card__sticker__example {
-    width: 50%;
+    width: 50%
 }
 
 .add-new-card__buttons {
@@ -201,4 +200,29 @@ textarea::placeholder {
 
 .notification-failure {
     background-color: #E4003D;
+}
+
+.remove, .clear {
+    text-align: center;
+    padding: 0.4rem 0;
+    background-color: #E4003D;
+    border-radius: 20px;
+    user-select: none;
+    cursor: pointer;
+    color: white;
+    opacity: 50%;
+    transition: 0.3s;
+    border: none;
+}
+
+.clear {
+    background-color: #00B644;
+}
+
+.remove:hover, .clear:hover {
+    opacity: 100%;
+}
+
+.manage-button {
+    width: 2rem;
 }
