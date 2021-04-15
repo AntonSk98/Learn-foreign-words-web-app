@@ -4,6 +4,11 @@ const changeColor = () => {
             <td><input type="text" class="add-new-card__sticker__input add-new-card__custom__input" name="word" placeholder="Type here a word"></td>
             <td><input type="text" class="add-new-card__sticker__input add-new-card__custom__input" name="translation" placeholder="Here goes the translation"></td>
             <td class="add-new-card__sticker__example"><input type="text" class="add-new-card__sticker__input add-new-card__custom__input" name="example" placeholder="Provide an example"></td>
+            <td onclick="removeSticker(this)" class="manage-button">
+                <div class="remove">
+                    &#10006
+                </div>
+            </td>
         </tr>`
     const element = document.getElementsByClassName("sticker");
     const lastTrElementIndex = element.length - 1;
@@ -11,16 +16,17 @@ const changeColor = () => {
 }
 
 
-let url;
 let headers;
 let body;
 
-const submitForm = () => {
+const submitCard = (newCard, card) => {
     const formElement = document.getElementById("submit_form");
     hideWarningNotification()
-    constructBody(formElement);
+    constructBody(formElement, card);
     if (validatedSticker(formElement.word, formElement.translation, formElement.example)) {
-        fetchForm()
+        let url
+        newCard ? url = '/add_new_card' : url = '/edit_card'
+        fetchForm(url)
     } else {
         showWarningNotification();
     }
@@ -62,11 +68,15 @@ const convertSectionToArray = (section) => {
     return section
 }
 
-const constructBody = (formElement) => {
+const constructBody = (formElement, card) => {
     body = {
+        id: card?.id,
         title: formElement.title.value,
         description: formElement.description.value,
-        rows: getRowsFromStickerField(formElement.word, formElement.translation, formElement.example)
+        rows: getRowsFromStickerField(formElement.word, formElement.translation, formElement.example),
+        createdAt: card?.createdAt,
+        progress: card?.progress
+
     }
 }
 
@@ -78,8 +88,7 @@ const hideWarningNotification = () => {
     document.getElementById('notification').style.display = 'none';
 }
 
-const fetchForm = () => {
-    url = 'add_new_card'
+const fetchForm = (url) => {
     headers = {'Content-Type': 'application/json'}
     fetch(url, {method: 'post', headers, body:  JSON.stringify(body)})
         .then(resp => {
@@ -97,7 +106,17 @@ const fetchForm = () => {
         })
 }
 
-const stulSubmitForm = () => {
+const stillSubmitForm = (newCard) => {
+    let url;
     hideWarningNotification()
-    fetchForm()
+    newCard ? url = '/add_new_card' : url = '/edit_card'
+    fetchForm(url)
+}
+
+const removeSticker = (stickerTD) => {
+   stickerTD.parentNode.remove()
+}
+
+const clearSticker = (stickerTd) => {
+    Array.from(stickerTd.parentNode.getElementsByTagName("input")).forEach(input => input.value = '')
 }

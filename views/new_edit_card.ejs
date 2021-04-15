@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Card</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/add_new_card.css">
+    <script src="/scripts/add_new_card_script.js"></script>
+</head>
+<body>
+    <%- include ('header.ejs') %>
+    <main>
+        <div class="add-new-card">
+            <h1 class="add-new-card__header">Add a new card here!</h1>
+            <form action="/add_new_card" method="POST" class="add-new-card__form" id="submit_form">
+                <div class="add-new-card__basic__container">
+                    <div>
+                        <div class="add-new-card__basic">
+                            <label for="title" class="add-new-card__basic__label">Title:</label>
+                            <input type="text"
+                                name="title" class="add-new-card__basic__text add-new-card__custom__input"
+                                placeholder="Provide a title"
+                                <% if (card) { %>
+                                    value= <%= card.title %> 
+                                <% } %>
+                            >
+                        </div>
+                        <div class="add-new-card__basic">
+                            <label for="description" class="add-new-card__basic__label">Description:</label>
+                            <textarea name="description"
+                                id="description" rows="7"
+                                class="add-new-card__basic__text add-new-card__custom__textarea"
+                                placeholder="Write here a short description for your card"><% if (card) { %><%=card.description%> <% } %></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="/img/german_flag.jpg">
+                    </div>  
+                </div>
+                <div class="add-new-card__sticker">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Word</th>
+                                <th>Translation</th>
+                                <th>Example</th>
+                            </tr>
+                            <% if (!card || !card.rows || !card.rows?.length) { %>
+                                <tr class="sticker">
+                                    <td><input type="text" class="add-new-card__sticker__input add-new-card__custom__input" name="word" placeholder="Type here a word"></td>
+                                    <td><input type="text" class="add-new-card__sticker__input add-new-card__custom__input" name="translation" placeholder="Here goes the translation"></td>
+                                    <td class="add-new-card__sticker__example"><input type="text" class="add-new-card__sticker__input add-new-card__custom__input" name="example" placeholder="Provide an example"></td>
+                                </tr>
+                            <% } else { %>
+                                <% for (const[index, sticker] of card.rows.entries()) { %>
+                                    <tr class="sticker" id="<%=index%>">
+                                        <td>
+                                            <input type="text"
+                                                class="add-new-card__sticker__input add-new-card__custom__input"
+                                                name="word"
+                                                placeholder="Type here a word" value="<%= sticker.word %>">
+                                        </td>
+                                        <td>
+                                            <input type="text"
+                                                class="add-new-card__sticker__input add-new-card__custom__input"
+                                                name="translation"
+                                                placeholder="Type here a word" value="<%= sticker.translation %>">
+                                        </td>
+                                        <td class="add-new-card__sticker__example">
+                                            <input type="text"
+                                                class="add-new-card__sticker__input add-new-card__custom__input"
+                                                name="example"
+                                                placeholder="Type here a word" value="<%= sticker.example %>">
+                                        </td>
+                                        <% if (index === 0) { %>
+                                            <td onclick="clearSticker(this)" class="manage-button">
+                                                <div class="clear">
+                                                    &#10006
+                                                </div>
+                                            </td>
+                                        <% } else { %>
+                                            <td onclick="removeSticker(this)" class="manage-button">
+                                                <div class="remove">
+                                                    &#10006
+                                                </div>
+                                            </td>
+                                        <% } %>
+                                        
+                                    </tr>
+                                <% } %>
+                            <% } %>   
+                        </tbody>
+                    </table>
+                </div> 
+                <div class="add-new-card__buttons">
+                    <button type="button" onclick="changeColor()">Add</button>
+                    <% if(!card) { %>
+                        <button type="button" onclick="submitCard(true)">Save</button>
+                    <% } else { %>
+                        <button type="button" onclick="submitCard(false, <%=JSON.stringify(card)%>)">Apply changes</button>
+                    <% } %>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+<div class="notification-container" id="notification">
+    <div class="notification warning">
+        <h2>Attention!</h2>
+        <span>All rows without the filled out fields 'word' and 'translation' will not be saved!</span>
+        <div>
+            <span>Do you want to continue?</span>
+            <div class="notification-buttons">
+                <% if (card) { %>
+                    <button id='save' onclick="stillSubmitForm(false, <%=card.id%>)">Still save!</button>
+                <% } else { %>
+                    <button id='save' onclick="stillSubmitForm(true)">Still save!</button>
+                <% } %>
+                <button id='edit' onclick="hideWarningNotification()">Edit card</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="notification-success" id="notification-success">
+    The card is successfully saved!
+</div>
+
+<div class="notification-failure" id="notification-failure">
+    Error occurred on the server...
+</div>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    try {
+        document.styleSheets[0].rules
+    } catch (error) {
+        console.log('i must reload the page :((')
+        document.location.reload()
+    }
+})
+</script>

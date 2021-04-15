@@ -3,8 +3,9 @@ const Card = require('../models/card')
 
 const getAddNewCardPage = (req, res, next) => {
     const path = 'add_new_card';
-    res.render('new_card', {
-        path: path
+    res.render('new_edit_card', {
+        path: path,
+        card: undefined
     })
 }
 
@@ -18,7 +19,7 @@ const parseBodyToCardObject = body => {
     const description = body.description;
     const card = new Card(title, description, new Date().toDateString());
     body.rows.forEach(row => {
-        card.stickers.push(new WordRow(
+        card.rows.push(new WordRow(
             row.word, row.translation, row.example
         ))
     });
