@@ -7,6 +7,7 @@
     <title>New Card</title>
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/add_new_card.css">
+    <link rel="stylesheet" href="/css/notification.css">
     <script src="/scripts/add_new_card_script.js"></script>
 </head>
 <body>
@@ -123,14 +124,8 @@
         </div>
     </div>
 </div>
-
-<div class="notification-success" id="notification-success">
-    The card is successfully saved!
-</div>
-
-<div class="notification-failure" id="notification-failure">
-    Error occurred on the server...
-</div>
+    <%- include('failure.ejs') %>
+    <%- include('success.ejs') %>
 </html>
 
 <script>

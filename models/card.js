@@ -106,6 +106,15 @@ module.exports = class Card {
         getAllCardsFromFile(callback);
     }
 
+    static fetchAllActiveCards(callback) {
+        getAllCardsFromFile(cards => {
+            const activeCards = cards.filter(card => card.progress !== 100)
+            // const activeCards = cards
+            console.log(activeCards)
+            callback(activeCards)
+        })
+    }
+
     static updateCard(card, callback) {
         const cardId = card.id;
         getAllCardsFromFile((cards, pathToFile) => {
@@ -114,6 +123,17 @@ module.exports = class Card {
             updatedCards[index] = card
             fs.writeFile(pathToFile, JSON.stringify(updatedCards), ()=>{})
             callback({cards: [...updatedCards]})
+        })
+    }
+
+    static archiveCard(cardId, callback) {
+        getAllCardsFromFile((cards, pathToFile) => {
+            cards.forEach(card => {
+                if (card.id === Number(cardId))
+                    card.progress = 100
+            });
+            fs.writeFile(pathToFile, JSON.stringify(cards), ()=>{})
+            callback()
         })
     }
 

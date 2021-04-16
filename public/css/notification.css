@@ -1,0 +1,72 @@
+.notification-container {
+    display: none;
+    position: fixed !important;
+    top: 0;
+    right: 0;
+    z-index: 100000;
+    width: 20%;
+    background-color: #FECA00;
+    border-radius: 0 0 0 50px;
+}
+
+.notification {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 2rem;
+}
+
+.notification h2 {
+    margin: 0 0 0.8rem 0;
+    text-align: center;
+    /* color: var(--custom-blue); */
+}
+
+.notification {
+    font-size: 1.2rem;
+}
+
+.notification>div {
+    margin-top: 1rem;
+}
+
+.notification-buttons>button:first-child{
+    margin-right: 2rem;
+}
+
+.notification-buttons>button {
+    margin-top: 0.5rem;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    background-color: white;
+    transition: 0.3s;
+}
+
+.notification-buttons>button:hover {
+    background-color: lightgray;
+}
+
+.notification-success, .notification-failure {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000000;
+    width: fit-content;
+    font-size: 1.3rem;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 0 0 0 20px;
+    display: none;
+}
+
+.notification-success {
+    background-color: #00B644;
+
+}
+
+.notification-failure {
+    background-color: #E4003D;
+}

@@ -15,7 +15,7 @@ abbr {
 }
 .cards-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     margin-top: 2.5rem;
 }
@@ -69,7 +69,6 @@ abbr {
 
 .hidden-text {
     font-weight: normal;
-    width: fit-content;
     width: 12rem;
     overflow: hidden;
     text-overflow: ellipsis;

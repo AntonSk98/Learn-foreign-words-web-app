@@ -24,42 +24,44 @@
                 </div>
             <% } else { %>
                 <div class="cards-container">
-                <% for (card of allCards) { %>
-                    <div class="card-outline">
-                        <div class="card-main-content">
-                            <h2><%=card.title%></h2>
-                            <div class="description">
-                                <div>Description:</div>
-                                <div class="tooltip-container">
-                                    <div id="tooltip" class="tooltip">
-                                        <small><%=card.description%></small>
+                    <% for (card of allCards) { %>
+                        <div class="card-outline">
+                            <div class="card-main-content">
+                                <h2><%=card.title%></h2>
+                                <div class="description">
+                                    <div>Description:</div>
+                                    <div class="tooltip-container">
+                                        <div id="tooltip" class="tooltip">
+                                            <small><%=card.description%></small>
+                                        </div>
+                                        <div class="hidden-text margin-left" onclick="hideShowTooltip(<%= allCards.indexOf(card) %>)"><%=card.description%></div>
                                     </div>
-                                    <div class="hidden-text margin-left" onclick="hideShowTooltip(<%= allCards.indexOf(card) %>)"><%=card.description%></div>
+                                </div>
+                                <div>
+                                    Created at: <span class="margin-left"><%=card.createdAt%></span>
                                 </div>
                             </div>
-                            <div>
-                                Created at: <span class="margin-left"><%=card.createdAt%></span>
+                            <div class="card-buttons">
+                                <div>
+                                    <button class="learn-button">Learn</button>
+                                    <form action="/edit_card/<%= card.id %>", method="POST">
+                                        <!-- <input type="hidden" name="card_id" value="<%= card.id %>"> -->
+                                        <button class="edit-button" type="submit"">Edit</button>
+                                    </form>
+                                    <button class="import-button">Import</button>
+                                </div>
+                                <div>
+                                    <button class="archive-button" onclick="archiveCard(<%=card.id%>)">Archive</button>
+                                    <button class="remove-button">Remove</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-buttons">
-                            <div>
-                                <button class="learn-button">Learn</button>
-                                <form action="/edit_card/<%= card.id %>", method="POST">
-                                    <!-- <input type="hidden" name="card_id" value="<%= card.id %>"> -->
-                                    <button class="edit-button" type="submit"">Edit</button>
-                                </form>
-                                <button class="import-button">Import</button>
-                            </div>
-                            <div>
-                                <button class="archive-button">Archive</button>
-                                <button class="remove-button">Remove</button>
-                            </div>
-                        </div>
-                    </div>
-                <% } %>
+                    <% } %>
                 </div>
             <% } %>
         </div>
     </main>
+    <%- include('failure.ejs') %>
+    <%- include('success.ejs') %>
 </body>
 </html>
