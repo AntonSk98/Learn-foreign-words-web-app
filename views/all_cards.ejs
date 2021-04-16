@@ -52,7 +52,7 @@
                                 </div>
                                 <div>
                                     <button class="archive-button" onclick="archiveCard(<%=card.id%>)">Archive</button>
-                                    <button class="remove-button">Remove</button>
+                                    <button class="remove-button" onclick="removeCard(<%=card.id%>)">Remove</button>
                                 </div>
                             </div>
                         </div>
@@ -65,3 +65,14 @@
     <%- include('success.ejs') %>
 </body>
 </html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    try {
+        document.styleSheets[0].rules
+    } catch (error) {
+        console.log('i must reload the page :((')
+        document.location.reload()
+    }
+})
+</script>

@@ -8,16 +8,39 @@ const archiveCard = (cardId) => {
     fetch(`/archive_card/${cardId}`)
         .then(resp => {
             if (resp.ok) {
-                document.getElementById('notification-success').style.display = 'block'
+                showSuccessNotification()
                 setTimeout(() => {window.location.reload()}, 3000)
             } else {
-                document.getElementById('notification-failure').style.display = 'block'
-                setTimeout(() => document.getElementById('notification-failure').style.display = 'none', 3000)
+                showFailureNotification()
             }
                 
         })
         .catch(err => {
-            document.getElementById('notification-failure').style.display = 'block'
-            setTimeout(() => document.getElementById('notification-failure').style.display = 'none', 3000)
+            showFailureNotification()
         })
+}
+
+const removeCard = (cardId) => {
+    fetch(`/remove_card/${cardId}`)
+        .then(resp => {
+            if (resp.ok) {
+                showSuccessNotification()
+                setTimeout(() => {window.location.reload()}, 3000)
+            } else {
+                showFailureNotification
+            }
+        })
+        .catch(err => {
+            showFailureNotification()
+        })
+
+}
+
+const showSuccessNotification = () => {
+    document.getElementById('notification-success').style.display = 'block'
+}
+
+const showFailureNotification = () => {
+    document.getElementById('notification-failure').style.display = 'block'
+    setTimeout(() => document.getElementById('notification-failure').style.display = 'none', 3000)
 }

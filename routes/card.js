@@ -9,4 +9,6 @@ router.post('/edit_card', cardController.editCard)
 
 router.get('/archive_card/:cardId', cardController.archiveCard)
 
+router.get('/remove_card/:cardId', cardController.removeCard)
+
 exports.router = router;

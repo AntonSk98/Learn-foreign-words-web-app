@@ -109,8 +109,6 @@ module.exports = class Card {
     static fetchAllActiveCards(callback) {
         getAllCardsFromFile(cards => {
             const activeCards = cards.filter(card => card.progress !== 100)
-            // const activeCards = cards
-            console.log(activeCards)
             callback(activeCards)
         })
     }
@@ -134,6 +132,15 @@ module.exports = class Card {
             });
             fs.writeFile(pathToFile, JSON.stringify(cards), ()=>{})
             callback()
+        })
+    }
+
+    static removeCard(cardId, callback) {
+        getAllCardsFromFile((cards, pathToFile) => {
+            const processedCards = cards.filter(card => card.id !== Number(cardId));
+            fs.writeFile(pathToFile, JSON.stringify(processedCards), ()=> {
+                callback()
+            })
         })
     }
 

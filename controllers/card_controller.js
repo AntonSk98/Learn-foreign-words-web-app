@@ -17,6 +17,12 @@ const archiveCard = (req, res, next) => {
     Card.archiveCard(cardId, () => res.status(200).send({status: 'success'}))
 }
 
+const removeCard = (req, res, next) => {
+    const cardId = req.params.cardId;
+    Card.removeCard(cardId, () => res.status(200).send({status: 'success'}))
+}
+
 exports.editCardPage = editCardPage;
 exports.editCard = editCard;
 exports.archiveCard = archiveCard;
+exports.removeCard = removeCard;
