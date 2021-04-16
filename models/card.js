@@ -144,6 +144,13 @@ module.exports = class Card {
         })
     }
 
+    static getArchivedCards(callback) {
+        getAllCardsFromFile(cards => {
+            const archivedCards = cards.filter(card => card.progress === 100)
+            callback(archivedCards)
+        })
+    }
+
     toString() {
         return `ID = ${this.#id} Title = ${this.#title}; Description = ${this.#description}; Progress = ${this.#progress} Rows = ${this.rows}`
     }

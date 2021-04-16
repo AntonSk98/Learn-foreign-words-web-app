@@ -1,4 +1,3 @@
-const { fetchAll } = require('../models/card');
 const Card = require('../models/card')
 
 const getAllCardsPage = (req, res, next) => {

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/header.css">
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include ('header.ejs') %>
+    <% if (archivedCards) { %>
+        <div style="display: flex; flex-wrap: wrap; margin-top: 10vh;">
+            <% for (archivedCard of archivedCards) { %>
+                <div style="margin: 2rem; text-align: center;">
+                    <div style="font-weight: bold;"><%= archivedCard.title %></div>
+                    <div><%= archivedCard.rows.length %></div>
+                    <div>There should be some actions...</div>
+                </div>
+            <% } %>
+        </div>
+    <% } else { %> {
+        <div>You did not learn even a single word!</div>
+        <div>Go, learn, improve yourself and never give up!</div>
+    <% } %>
+</body>
+</html>
