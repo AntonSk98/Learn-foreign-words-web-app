@@ -11,4 +11,6 @@ router.get('/archive_card/:cardId', cardController.archiveCard)
 
 router.get('/remove_card/:cardId', cardController.removeCard)
 
+router.get('/unarchive_card/:cardId', cardController.unarchiveCard)
+
 exports.router = router;

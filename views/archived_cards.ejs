@@ -5,23 +5,66 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/archived_cards.css">
+    <script src="/scripts/archived_cards_script.js"></script>
     <title><%= title %></title>
 </head>
 <body>
     <%- include ('header.ejs') %>
-    <% if (archivedCards) { %>
-        <div style="display: flex; flex-wrap: wrap; margin-top: 10vh;">
-            <% for (archivedCard of archivedCards) { %>
-                <div style="margin: 2rem; text-align: center;">
-                    <div style="font-weight: bold;"><%= archivedCard.title %></div>
-                    <div><%= archivedCard.rows.length %></div>
-                    <div>There should be some actions...</div>
-                </div>
-            <% } %>
-        </div>
-    <% } else { %> {
-        <div>You did not learn even a single word!</div>
-        <div>Go, learn, improve yourself and never give up!</div>
-    <% } %>
+    <main class="outline">
+        <% if (archivedCards) { %>
+            <table>
+                <caption>Archived cards</caption>
+                <tr>
+                    <th>Title</th>
+                    <th>Created at</th>
+                    <th class="words-header">Learned words</th>
+                    <th>Actions</th>
+                </tr>
+                <% for (archivedCard of archivedCards) { %>
+                    <tr>
+                        <td><%= archivedCard.title %></td>
+                        <td><%= archivedCard.createdAt %></td>
+                        <td class="words"><%= archivedCard.rows.length %></td>
+                        <td class="actions">
+                            <button onclick="viewCard(<%= JSON.stringify(archivedCard) %>)">View</button>
+                            <button onclick="unarchiveCard(<%= archivedCard.id %>)">Unarchive</button>
+                            <button onclick="removeCard(<%= archivedCard.id %>)">Remove</button>
+                        </td>
+                    </tr>
+                <% } %>
+            </table>
+        <% } else { %>
+            <div class="empty-archive">
+                <div>You did not learn even a single word!</div>
+                <div>Go, learn, improve yourself and never give up!</div>
+            </div>
+        <% } %>
+    </main>
+
+    
 </body>
+<%- include('success.ejs') %>
+<%- include('failure.ejs') %>
+<div id="background"></div>
+<div class="card-view" id="card-view">
+    <div class="card-container">
+        <div class="first-row">
+            <h2>Some title</h2>
+            <div class="card-view-close" onclick="closeView()">&#10006;</div>
+        </div>
+        <div class="card-view-sticker">
+            <div class="card-view-sticker-body">
+                <div class="word">
+                    <div class="title" id="word_title_id">Word</div>
+                    
+                </div>
+                <div class="translation">
+                    <div class="title" id="translation_title_id">Translation</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </html>

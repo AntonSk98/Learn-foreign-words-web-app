@@ -151,6 +151,18 @@ module.exports = class Card {
         })
     }
 
+    static unarchiveCard(cardId, callback) {
+        getAllCardsFromFile((cards, pathToFile) => {
+            cards.forEach(card => {
+                if (card.id === Number(cardId))
+                    card.progress = 0;
+            });
+            fs.writeFile(pathToFile, JSON.stringify(cards), ()=>{
+                callback()
+            })
+        })
+    }
+
     toString() {
         return `ID = ${this.#id} Title = ${this.#title}; Description = ${this.#description}; Progress = ${this.#progress} Rows = ${this.rows}`
     }
