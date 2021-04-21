@@ -45,10 +45,10 @@
                                 <div>
                                     <button class="learn-button">Learn</button>
                                     <form action="/edit_card/<%= card.id %>", method="POST">
-                                        <!-- <input type="hidden" name="card_id" value="<%= card.id %>"> -->
                                         <button class="edit-button" type="submit"">Edit</button>
                                     </form>
-                                    <button class="import-button">Import</button>
+                                    <button id="import-card-<%= card.id %>" class="import-button" onclick="importCard(<%= JSON.stringify(card) %>, this)">Import</button>
+                                    <a id="download-card-<%= card.id %>" class="download-card-button" onclick="hideDownloadButtonShowImport(<%=card.id%>)">Download!</a>
                                 </div>
                                 <div>
                                     <button class="archive-button" onclick="archiveCard(<%=card.id%>)">Archive</button>

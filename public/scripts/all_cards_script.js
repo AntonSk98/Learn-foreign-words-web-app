@@ -44,3 +44,31 @@ const showFailureNotification = () => {
     document.getElementById('notification-failure').style.display = 'block'
     setTimeout(() => document.getElementById('notification-failure').style.display = 'none', 3000)
 }
+
+const importCard = (card) => {
+
+    prepareTextFileToDownload(card)
+    hideImportCardButton(card.id)
+    
+    setTimeout(() => hideDownloadButtonShowImport(card.id), 5000)
+}
+
+const hideDownloadButtonShowImport = cardId => {
+    const importCardButton = document.getElementById(`import-card-${cardId}`) 
+    const downlaodCardLink = document.getElementById(`download-card-${cardId}`)
+
+    downlaodCardLink.style.display = 'none'
+    importCardButton.style.display = 'block'
+}
+
+const hideImportCardButton = cardId => {
+    document.getElementById(`import-card-${cardId}`).style.display = 'none'
+}
+
+const prepareTextFileToDownload = card => {
+    const txtFile = new Blob([JSON.stringify(card)], {type: 'application/json'})
+    const downlaodCardLink = document.getElementById(`download-card-${card.id}`)
+    downlaodCardLink.href = URL.createObjectURL(txtFile)
+    downlaodCardLink.download = `${card.title || 'noname_card'}.txt`
+    downlaodCardLink.style.display = 'block'
+}

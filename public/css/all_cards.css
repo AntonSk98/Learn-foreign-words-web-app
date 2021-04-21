@@ -139,7 +139,7 @@ abbr {
     flex-direction: column;
 }
 
-.card-buttons button {
+.card-buttons button, .card-buttons a {
     width: 8rem;
     border-radius: 20px;
     border: none;
@@ -152,7 +152,11 @@ abbr {
     transition: 0.3s;
 }
 
-.learn-button:hover, .import-button:hover, .edit-button:hover {
+.card-buttons a {
+    width: auto;
+}
+
+.learn-button:hover, .import-button:hover, .edit-button:hover, .download-card-button:hover {
     opacity: 60%;
 }
 
@@ -172,6 +176,12 @@ abbr {
 
 .archive-button:hover {
     background-color: green;
+}
+
+.download-card-button {
+    background-color: #343940;
+    color: white !important;
+    display: none;
 }
 
 .no-cards > div {
