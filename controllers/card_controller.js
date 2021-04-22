@@ -2,7 +2,7 @@ const Card = require('../models/card')
 
 const editCardPage = (req, res, next) => {
     Card.getCardByCardId(req.params.cardId, card => {
-        res.render('new_edit_card', {path: '/aa', card: card})
+        res.render('new_edit_card', {path: '/edit_card_page', card: card})
     })
 }
 
@@ -27,8 +27,18 @@ const unarchiveCard = (req, res, next) => {
     Card.unarchiveCard(cardId, () => res.status(200).send({status: 'success'}))
 }
 
+const learnCardPage = (req, res, next) => {
+    const cardId = req.params.cardId;
+    Card.getCardByCardId(cardId, card => res.render('learn_card.ejs', {
+        path: '/learn_card_page',
+        title: 'Learn card page',
+        card: card
+    }))
+}
+
 exports.editCardPage = editCardPage;
 exports.editCard = editCard;
 exports.archiveCard = archiveCard;
 exports.removeCard = removeCard;
 exports.unarchiveCard = unarchiveCard;
+exports.learnCardPage = learnCardPage;

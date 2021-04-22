@@ -72,3 +72,7 @@ const prepareTextFileToDownload = card => {
     downlaodCardLink.download = `${card.title || 'noname_card'}.txt`
     downlaodCardLink.style.display = 'block'
 }
+
+const learnCard = cardId => {
+    window.location.href = `/learn_card/${cardId}`
+}

@@ -1,0 +1,108 @@
+@import "common.css";
+
+.learn-card-container {
+    width: var(--container-width);
+    margin: 0 auto;
+}
+
+.title h3 {
+    text-align: center;
+    margin: 0.2rem;
+    font-size: 1.5rem;
+    color: var(--custom-blue)
+}
+
+.title span {
+    display: block;
+    text-align: center;
+    font-size: 1.2rem;
+    color: black;
+}
+
+.card-info-area {
+    margin-top: 2rem;
+    display: flex;
+}
+
+.card-info-area > div:first-child {
+    height: min-content;
+    display: flex;
+    align-items: center;
+    padding: 2rem 3rem;
+    background-color: var(--custom-blue);
+    border-radius:  20px;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.card-info-area > div:nth-child(2) {
+    display: flex;
+    align-items: center;
+    flex: 3;
+    margin-left: 5rem;
+    background-color: #6C747D;
+    color: white;
+    font-size: 1.2rem;
+    padding: 2rem 3rem;
+    border-radius: 20px;
+}
+
+.card-info-area > div:nth-child(2) > span:nth-child(2) {
+    max-height: 40vh;
+    overflow: auto;
+}
+
+.card-name-margin {
+    margin-right: 2rem;
+}
+
+.empty-card {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #6C747D
+}
+
+.go-back-button {
+    outline: none;
+    user-select: none;
+    border: none;
+    border-radius: 20px;
+    padding: 1rem 2.5rem;
+    color: white;
+    background-color: var(--custom-blue);
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.go-back-button:hover {
+    opacity: 65%;
+}
+
+.card-sticker {
+    background-color: var(--custom-blue);
+    border-radius: 20px;
+}
+
+.row {
+    margin: 2rem;
+    margin-top: 2rem;
+    padding: 2rem;
+    margin-top: 2rem;
+    display: flex;
+    /* background-color: #6C747D; */
+}
+
+.row > div:first-child {
+    flex: 1;
+}
+
+.row > div:nth-child(2) {
+    flex: 1;
+}
+
+.row > div:last-child {
+    flex: 2;
+}
