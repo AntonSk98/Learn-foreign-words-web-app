@@ -1,5 +1,9 @@
 @import "common.css";
 
+main {
+    margin-bottom: 2rem;
+}
+
 .add-new-card {
     width: var(--container-width);
     margin: 0 auto;

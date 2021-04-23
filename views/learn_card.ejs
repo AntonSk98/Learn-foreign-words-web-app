@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %>></title>
+    <title><%= title %></title>
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/learn_card.css">
     <script src="/scripts/learn_card_script.js"></script>
@@ -23,12 +23,13 @@
                     <span><%= card.title || 'No title' %></span>
                 </div>
                 <div class="card-description">
-                    <span class="card-name-margin">Description:</span>
+                    <span class="card-name-margin description-name">Description:</span>
                     <span><%= card.description || 'No description' %></span>
                 </div>
             </div>
             <div class="card-sticker">
                 <% if (card.rows.length) { %>
+                    <div class="subtitle">Here is your sticker. Good luck and have fun!</div>
                     <% for (row of card.rows) { %>
                         <div class="row">
                             <div><%= row.word || 'No word' %></div>
@@ -36,6 +37,10 @@
                             <div><%= row.example || 'No example'%></div>
                         </div>
                     <% } %>
+                    <div class="action-section">
+                        <button onclick="improveCardProgress(<%= card.id %>)">Improved! :-)</button>
+                        <button onclick="reduceCardProgress(<%= card.id %>)">Worsened... :-(</button>
+                    </div>
                 <% } else { %>
                     <div class="empty-card">You did not add any words yet to this card!</div>
                     <button class="go-back-button" onclick="goBack()">Go back</button>
@@ -43,5 +48,7 @@
             </div>
         </div>
     </main>
+    <%- include('failure.ejs') %>
+    <%- include('success.ejs') %>
 </body>
 </html>

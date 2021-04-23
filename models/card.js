@@ -157,7 +157,32 @@ module.exports = class Card {
                 if (card.id === Number(cardId))
                     card.progress = 0;
             });
-            fs.writeFile(pathToFile, JSON.stringify(cards), ()=>{
+            fs.writeFile(pathToFile, JSON.stringify(cards), () => {
+                callback()
+            })
+        })
+    }
+
+    static reduceCardProgress(cardId, callback) {
+        Card.#manipulateCardProgress(cardId, callback, -5)
+    }
+
+    static improveCardProgress(cardId, callback) {
+        Card.#manipulateCardProgress(cardId, callback, 5)
+    }
+
+    static #manipulateCardProgress(cardId, callback, value) {
+        getAllCardsFromFile((cards, pathToFile) => {
+            cards.forEach(card => {
+                if (card.progress >= 100 && value > 0)
+                    return
+                if (card.id === Number(cardId) && card.progress > 0) {
+                    card.progress += value
+                }
+                if (card.progress === 0 && value > 0)
+                    card.progress += value
+            });
+            fs.writeFile(pathToFile, JSON.stringify(cards), () => {
                 callback()
             })
         })

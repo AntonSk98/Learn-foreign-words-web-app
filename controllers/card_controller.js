@@ -36,9 +36,22 @@ const learnCardPage = (req, res, next) => {
     }))
 }
 
+const reduceCardProgress = (req, res, next) => {
+    const cardId = req.params.cardId;
+    Card.reduceCardProgress(cardId, () => res.status(200).send({status: 'success'}))
+}
+
+const improveCardProgress = (req, res, next) => {
+    const cardId = req.params.cardId;
+    Card.improveCardProgress(cardId, () => res.status(200).send({status: 'success'}))
+
+}
+
 exports.editCardPage = editCardPage;
 exports.editCard = editCard;
 exports.archiveCard = archiveCard;
 exports.removeCard = removeCard;
 exports.unarchiveCard = unarchiveCard;
 exports.learnCardPage = learnCardPage;
+exports.reduceCardProgress = reduceCardProgress;
+exports.improveCardProgress = improveCardProgress;

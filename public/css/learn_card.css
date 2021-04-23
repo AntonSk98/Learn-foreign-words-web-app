@@ -1,5 +1,9 @@
 @import "common.css";
 
+.outline {
+    margin-bottom: 2rem;
+}
+
 .learn-card-container {
     width: var(--container-width);
     margin: 0 auto;
@@ -9,7 +13,7 @@
     text-align: center;
     margin: 0.2rem;
     font-size: 1.5rem;
-    color: var(--custom-blue)
+    color: var(--custom-blue);
 }
 
 .title span {
@@ -22,33 +26,54 @@
 .card-info-area {
     margin-top: 2rem;
     display: flex;
+    justify-content: space-between;
 }
 
 .card-info-area > div:first-child {
     height: min-content;
     display: flex;
     align-items: center;
-    padding: 2rem 3rem;
+    padding: 1.5rem 3rem;
     background-color: var(--custom-blue);
     border-radius:  20px;
     color: white;
     font-size: 1.2rem;
+    width: 30%;
 }
 
 .card-info-area > div:nth-child(2) {
     display: flex;
+    width: max-content;
+    align-items: baseline !important;
+    margin-left: 5rem;
     align-items: center;
     flex: 3;
-    margin-left: 5rem;
-    background-color: #6C747D;
-    color: white;
+    border: 3px solid var(--custom-blue);
     font-size: 1.2rem;
     padding: 2rem 3rem;
     border-radius: 20px;
+    min-height: 10vh;
+    max-height: 20vh;
+    max-width: 50%;
+}
+
+.description-name {
+    color: var(--custom-blue);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.card-info-area > div:nth-child(1) > span:nth-child(2) {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
 }
 
 .card-info-area > div:nth-child(2) > span:nth-child(2) {
-    max-height: 40vh;
+    height: 100%;
+    width: 80%;
+    word-wrap: break-word;
     overflow: auto;
 }
 
@@ -82,17 +107,41 @@
 }
 
 .card-sticker {
-    background-color: var(--custom-blue);
     border-radius: 20px;
 }
 
+.subtitle {
+    margin: 2rem 0;
+    font-size: 1.5rem;
+    color: var(--custom-blue);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+hr {
+    border-top: 2px solid var(--custom-blue);
+    width: 20%;
+    margin: 1.5rem auto;
+}
+
 .row {
-    margin: 2rem;
-    margin-top: 2rem;
-    padding: 2rem;
-    margin-top: 2rem;
     display: flex;
-    /* background-color: #6C747D; */
+    border: 2px solid #dddd;
+}
+
+.row > div:not(:first-child) {
+    margin-left: 2rem;
+}
+
+.row > div {
+    padding: 2rem 1rem;
+    max-height: 10vh;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.row:nth-child(even) {
+    background-color: #dddd;
 }
 
 .row > div:first-child {
@@ -105,4 +154,29 @@
 
 .row > div:last-child {
     flex: 2;
+}
+
+.action-section {
+    margin-top: 2rem;
+}
+
+.action-section button {
+    outline: none;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 20px;
+    background-color: #00B644;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.action-section button:hover {
+    opacity: 60%;
+}
+
+.action-section button:not(:first-child) {
+    margin-left: 2rem;
+    background-color: #E4003D;
 }
