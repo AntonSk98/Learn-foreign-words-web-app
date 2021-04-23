@@ -92,3 +92,9 @@ tr {
     opacity: 40%;
 }
 
+.sticker-title {
+    overflow: hidden;
+    max-width: 20vw;
+    text-overflow: ellipsis;
+}
+

@@ -25,6 +25,9 @@
     padding: 1rem 0;
     width: -webkit-fill-available;
     color: var(--custom-blue);
+    overflow: hidden;
+    max-width: 30vw;
+    text-overflow: ellipsis;
 }
 
 .first-row {
