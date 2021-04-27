@@ -1,0 +1,8 @@
+{
+    "database": "german_app",
+    "username": "postgres",
+    "password": "12monolith98",
+    "host": "localhost",
+    "dialect": "postgres",
+    "port": 5432
+}

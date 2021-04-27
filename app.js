@@ -8,6 +8,8 @@ const allCardsRouter = require('./routes/all_cards');
 const cardRouter = require('./routes/card')
 const archivedCardsRouter = require('./routes/archived_cards')
 
+const jsonFile = require('./database/db')
+
 const errorController = require('./controllers/error_controller')
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -26,5 +28,6 @@ app.use('', archivedCardsRouter.router)
 app.use(errorController.get404Page);
 
 app.listen(3000, () => {
+    jsonFile
     console.log('Application is started on port 3000!');
 })
