@@ -25,6 +25,14 @@ app.use('', archivedCardsRouter.router)
 
 app.use(errorController.get404Page);
 
+
+const synchronizeModels = async () => {
+    const sequelize = require('./database/database')
+    await sequelize.sync({force: true})
+    console.log('All models were synchronized successfully.')
+}
+
 app.listen(3000, () => {
+    synchronizeModels()
     console.log('Application is started on port 3000!');
 })
