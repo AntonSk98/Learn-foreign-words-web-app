@@ -10,6 +10,8 @@ const archivedCardsRouter = require('./routes/archived_cards')
 
 const errorController = require('./controllers/error_controller')
 
+const sequelize = require('./database/database')
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'ejs');
@@ -25,14 +27,15 @@ app.use('', archivedCardsRouter.router)
 
 app.use(errorController.get404Page);
 
-
-const synchronizeModels = async () => {
-    const sequelize = require('./database/database')
-    await sequelize.sync({force: true})
-    console.log('All models were synchronized successfully.')
-}
-
 app.listen(3000, () => {
-    synchronizeModels()
-    console.log('Application is started on port 3000!');
+    const Card = require('./models/Card')
+    const StickerRow = require('./models/StickerRow')
+    const User = require('./models/User')
+    sequelize.sync({force: true})
+    setTimeout(() => User.create({
+        name: 'Anton',
+        surname: 'Skripin',
+        password: 'hello'
+    }), 3000)
+    console.log('Application is started on port 8000!');
 })

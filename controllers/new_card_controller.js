@@ -10,22 +10,9 @@ const getAddNewCardPage = (req, res, next) => {
 }
 
 const addNewCard = (req, res, next) => {
-    parseBodyToCardObject(req.body)
-    res.status(200).send({result: 'success'})
+    console.log(req.body)
 }
 
-const parseBodyToCardObject = body => {
-    const title = body.title;
-    const description = body.description;
-    const card = new Card(title, description, new Date().toDateString());
-    body.rows.forEach(row => {
-        card.rows.push(new WordRow(
-            row.word, row.translation, row.example
-        ))
-    });
-    
-    card.save(); 
-}
 
 exports.getAddNewCardPage = getAddNewCardPage;
 exports.addNewCard = addNewCard;

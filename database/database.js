@@ -11,4 +11,5 @@ const sequelize = new Sequelize({
     port: config.port
 })
 
+
 module.exports = sequelize;
