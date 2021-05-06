@@ -12,12 +12,22 @@ const Card = sequelize.define('card', {
     },
     title: Sequelize.STRING,
     description: Sequelize.TEXT,
-    progress: Sequelize.INTEGER,
+    progress: {
+        type: Sequelize.INTEGER,
+        validate: {
+            max: 100,
+            min: 0
+        }
+    },
+    createdAt: {
+        type: Sequelize.DATEONLY
+    }
 
 })
 
 Card.hasMany(StickerRow, {
     onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
     foreignKey: {
         allowNull: false,
     }

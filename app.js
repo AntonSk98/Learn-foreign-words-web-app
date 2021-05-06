@@ -31,7 +31,7 @@ app.listen(3000, () => {
     const Card = require('./models/Card')
     const StickerRow = require('./models/StickerRow')
     const User = require('./models/User')
-    sequelize.sync({force: true})
+    sequelize.sync()
     setTimeout(() => User.create({
         name: 'Anton',
         surname: 'Skripin',

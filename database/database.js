@@ -8,7 +8,8 @@ const sequelize = new Sequelize({
     password: config.password,
     host: config.host,
     dialect: config.dialect,
-    port: config.port
+    port: config.port,
+    logging: false
 })
 
 
