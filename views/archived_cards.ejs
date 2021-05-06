@@ -13,20 +13,20 @@
 <body>
     <%- include ('header.ejs') %>
     <main class="outline">
-        <% if (archivedCards) { %>
-            <table>
-                <caption>Archived cards</caption>
-                <tr>
-                    <th>Title</th>
-                    <th>Created at</th>
-                    <th class="words-header">Learned words</th>
-                    <th>Actions</th>
-                </tr>
+        <table>
+            <caption>Archived cards</caption>
+            <tr>
+                <th>Title</th>
+                <th>Created at</th>
+                <th class="words-header">Learned words</th>
+                <th>Actions</th>
+            </tr>
+            <% if (archivedCards.length > 0) { %>
                 <% for (archivedCard of archivedCards) { %>
                     <tr>
                         <td class="sticker-title"><%= archivedCard.title %></td>
                         <td><%= archivedCard.createdAt %></td>
-                        <td class="words"><%= archivedCard.rows.length %></td>
+                        <td class="words"><%= archivedCard.stickerRows.length %></td>
                         <td class="actions">
                             <button onclick="viewCard(<%= JSON.stringify(archivedCard) %>)">View</button>
                             <button onclick="unarchiveCard(<%= archivedCard.id %>)">Unarchive</button>
@@ -34,13 +34,12 @@
                         </td>
                     </tr>
                 <% } %>
-            </table>
-        <% } else { %>
-            <div class="empty-archive">
-                <div>You did not learn even a single word!</div>
-                <div>Go, learn, improve yourself and never give up!</div>
-            </div>
-        <% } %>
+            <% } else { %>
+                <tr>
+                    <td colspan="4">There are no card in the archive!</td>
+                </tr>
+            <% } %>
+        </table>
     </main>
 
     

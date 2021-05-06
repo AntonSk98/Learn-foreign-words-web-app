@@ -48,15 +48,19 @@
                                 <th>Translation</th>
                                 <th>Example</th>
                             </tr>
-                            <% if (!card || !card.rows || !card.rows?.length) { %>
+                            <% if (!card || !card.stickerRows || !card.stickerRows?.length) { %>
                                 <tr class="sticker">
+                                    <td style="display: none"><input type="hidden" name="id"></td>
                                     <td><input type="text" class="add-new-card__sticker__input add-new-card__custom__input" name="word" placeholder="Type here a word"></td>
                                     <td><input type="text" class="add-new-card__sticker__input add-new-card__custom__input" name="translation" placeholder="Here goes the translation"></td>
                                     <td class="add-new-card__sticker__example"><input type="text" class="add-new-card__sticker__input add-new-card__custom__input" name="example" placeholder="Provide an example"></td>
                                 </tr>
                             <% } else { %>
-                                <% for (const[index, sticker] of card.rows.entries()) { %>
+                                <% for (const[index, sticker] of card.stickerRows.entries()) { %>
                                     <tr class="sticker" id="<%=index%>">
+                                        <td style="display: none">
+                                            <input type="hidden" name="id" value="<%= sticker.id %>">
+                                        </td>
                                         <td>
                                             <input type="text"
                                                 class="add-new-card__sticker__input add-new-card__custom__input"

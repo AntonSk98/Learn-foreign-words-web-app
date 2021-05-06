@@ -1,6 +1,7 @@
 @import "common.css";
 
 .outline {
+    display: block;
     width: var(--container-width);
     margin: 0 auto;
     margin-top: var(--top-spacing);

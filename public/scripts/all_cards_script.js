@@ -66,7 +66,7 @@ const hideImportCardButton = cardId => {
 }
 
 const prepareTextFileToDownload = card => {
-    const txtFile = new Blob([JSON.stringify(card)], {type: 'application/json'})
+    const txtFile = new Blob([JSON.stringify(card, null, "\t")], {type: 'application/json'})
     const downlaodCardLink = document.getElementById(`download-card-${card.id}`)
     downlaodCardLink.href = URL.createObjectURL(txtFile)
     downlaodCardLink.download = `${card.title || 'noname_card'}.txt`

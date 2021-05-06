@@ -28,9 +28,9 @@
                 </div>
             </div>
             <div class="card-sticker">
-                <% if (card.rows.length) { %>
+                <% if (card.stickerRows.length) { %>
                     <div class="subtitle">Here is your sticker. Good luck and have fun!</div>
-                    <% for (row of card.rows) { %>
+                    <% for (row of card.stickerRows) { %>
                         <div class="row">
                             <div><%= row.word || 'No word' %></div>
                             <div><%= row.translation || 'No translation' %></div>

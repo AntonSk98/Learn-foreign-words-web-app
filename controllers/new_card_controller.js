@@ -1,5 +1,7 @@
 const WordRow = require('../models/word_row')
-const Card = require('../models/card')
+const Card = require('../models/Card')
+const StickerRow = require('../models/StickerRow')
+const User = require('../models/User')
 
 const getAddNewCardPage = (req, res, next) => {
     const path = 'add_new_card';
@@ -9,23 +11,26 @@ const getAddNewCardPage = (req, res, next) => {
     })
 }
 
-const addNewCard = (req, res, next) => {
-    parseBodyToCardObject(req.body)
-    res.status(200).send({result: 'success'})
+const addNewCard = async (req, res, next) => {
+    const user = await User.findOne({where: {id: 1}}) // TODO remove this user in the future!
+    const card = req.body;
+    const storedCard = await Card.create({
+        title: card.title,
+        description: card.description,
+        progress: 0,
+        userId: user.id,
+    })
+    card.rows.forEach(row => {
+        storedCard.createStickerRow({
+            word: row.word || '',
+            translation: row.translation || '',
+            example: row.example || ''
+        })
+    })
+    console.log(storedCard)
+    res.status(200).send({message: 'Card is added successfully!'})
 }
 
-const parseBodyToCardObject = body => {
-    const title = body.title;
-    const description = body.description;
-    const card = new Card(title, description, new Date().toDateString());
-    body.rows.forEach(row => {
-        card.rows.push(new WordRow(
-            row.word, row.translation, row.example
-        ))
-    });
-    
-    card.save(); 
-}
 
 exports.getAddNewCardPage = getAddNewCardPage;
 exports.addNewCard = addNewCard;

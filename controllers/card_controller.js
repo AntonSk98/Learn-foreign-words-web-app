@@ -1,50 +1,85 @@
-const Card = require('../models/card')
+// const Card = require('../models/card')
+const Card = require('../models/Card')
+const StickerRow = require('../models/StickerRow')
 
-const editCardPage = (req, res, next) => {
-    Card.getCardByCardId(req.params.cardId, card => {
-        res.render('new_edit_card', {path: '/edit_card_page', card: card})
+const editCardPage = async (req, res, next) => {
+    const id = req.params.cardId;
+    const card = await Card.findByPk(id, {include: StickerRow})
+    res.render('new_edit_card', {
+        path: '/edit_card_page',
+        card: card
     })
 }
 
-const editCard = (req, res, next) => {
-    Card.updateCard({...req.body}, ()=>{
-        res.status(200).send({status: 'success'})
+const editCard = async (req, res, next) => {
+    const updatedCard = req.body
+    const card = await Card.findByPk(updatedCard.id, {include: StickerRow})
+    card.title = updatedCard.title;
+    card.description = updatedCard.description;
+    await StickerRow.destroy({
+        where: {
+            cardId: card.id
+        }
     })
+    await updatedCard.rows.forEach(row => StickerRow.create({
+        word: row.word || '',
+        translation: row.translation || '',
+        example: row.example || '',
+        cardId: card.id
+    }))
+    res.status(200).send({message: `Card with id ${card.id} is successfully updated!`})
 }
 
-const archiveCard = (req, res, next) => {
+const archiveCard = async (req, res, next) => {
     const cardId = req.params.cardId;
-    Card.archiveCard(cardId, () => res.status(200).send({status: 'success'}))
+    const card = await Card.findByPk(cardId);
+    card.progress = 100;
+    await card.save()
+    res.status(200).send({message: `Card is put into arcive!`})
 }
 
-const removeCard = (req, res, next) => {
+const removeCard = async (req, res, next) => {
     const cardId = req.params.cardId;
-    Card.removeCard(cardId, () => res.status(200).send({status: 'success'}))
+    await Card.destroy({
+        where: {
+            id: cardId
+        }
+    })
+    res.status(200).send({message: `Card with id ${cardId} is successfully deleted!`})
 }
 
-const unarchiveCard = (req, res, next) => {
+const unarchiveCard = async (req, res, next) => {
     const cardId = req.params.cardId;
-    Card.unarchiveCard(cardId, () => res.status(200).send({status: 'success'}))
+    const card = await Card.findByPk(cardId);
+    card.progress = 0;
+    card.save()
+    res.status(200).send({message: `Card with id ${cardId} us successfully unarchived! The progress is reset...`})
 }
 
-const learnCardPage = (req, res, next) => {
+const learnCardPage = async (req, res, next) => {
     const cardId = req.params.cardId;
-    Card.getCardByCardId(cardId, card => res.render('learn_card.ejs', {
+    const card = await Card.findByPk(cardId, {include: StickerRow})
+    res.render('learn_card.ejs', {
         path: '/learn_card_page',
         title: 'Learn card page',
         card: card
-    }))
+    })
 }
 
-const reduceCardProgress = (req, res, next) => {
+const reduceCardProgress = async (req, res, next) => {
     const cardId = req.params.cardId;
-    Card.reduceCardProgress(cardId, () => res.status(200).send({status: 'success'}))
+    const card = await Card.findByPk(cardId);
+    card.progress -= 5;
+    await card.save()
+    res.status(200).send({message: `The progress for card with id ${cardId} was reduced by 5!`})
 }
 
-const improveCardProgress = (req, res, next) => {
+const improveCardProgress = async (req, res, next) => {
     const cardId = req.params.cardId;
-    Card.improveCardProgress(cardId, () => res.status(200).send({status: 'success'}))
-
+    const card = await Card.findByPk(cardId);
+    card.progress += 5;
+    await card.save()
+    res.status(200).send({message: `The progress for card with id ${cardId} was increased by 5!`})
 }
 
 exports.editCardPage = editCardPage;
