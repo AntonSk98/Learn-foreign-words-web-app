@@ -17,13 +17,13 @@
     margin: 0 auto;
     background-color: white;
     color: black;
+    position: relative
 }
 
 .card-container h2 {
-    text-align: center;
     margin: 0;
     padding: 1rem 0;
-    width: -webkit-fill-available;
+    /* width: -webkit-fill-available; */
     color: var(--custom-blue);
     overflow: hidden;
     max-width: 30vw;
@@ -31,12 +31,16 @@
 }
 
 .first-row {
+    width: 90%;
+    margin: auto;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 }
 
 .card-view-close {
+    position: absolute;
+    right: 0;
     background-color: var(--custom-blue);
     padding: 0.5rem 0.7rem;
     margin: 0.5rem;
