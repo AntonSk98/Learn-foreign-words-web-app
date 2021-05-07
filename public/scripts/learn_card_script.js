@@ -32,7 +32,7 @@ const fetchRequestImproveOrReduceCard = url => {
                 setTimeout(() => goBack(), 3000)
                 return
             }
-            resp.json().then(failureResponse => showFailureNotification(failureResponse.message))
+            resp.text().then(failureMessage => showFailureNotification(failureMessage))
         })
         .catch(() => showFailureNotification())
 }
