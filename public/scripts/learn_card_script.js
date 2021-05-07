@@ -16,8 +16,9 @@ const showSuccessNotification = () => {
     document.getElementById('notification-success').style.display = 'block'
 }
 
-const showFailureNotification = () => {
+const showFailureNotification = (message) => {
     document.getElementById('notification-failure').style.display = 'block'
+    document.getElementById('custom-message').innerText = message
     setTimeout(() => document.getElementById('notification-failure').style.display = 'none', 3000)
 }
 
@@ -31,7 +32,7 @@ const fetchRequestImproveOrReduceCard = url => {
                 setTimeout(() => goBack(), 3000)
                 return
             }
-            showFailureNotification()
+            resp.json().then(failureResponse => showFailureNotification(failureResponse.message))
         })
         .catch(() => showFailureNotification())
 }

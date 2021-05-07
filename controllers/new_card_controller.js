@@ -1,6 +1,4 @@
-const WordRow = require('../models/word_row')
 const Card = require('../models/Card')
-const StickerRow = require('../models/StickerRow')
 const User = require('../models/User')
 
 const getAddNewCardPage = (req, res, next) => {

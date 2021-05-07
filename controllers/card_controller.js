@@ -70,16 +70,24 @@ const reduceCardProgress = async (req, res, next) => {
     const cardId = req.params.cardId;
     const card = await Card.findByPk(cardId);
     card.progress -= 5;
-    await card.save()
-    res.status(200).send({message: `The progress for card with id ${cardId} was reduced by 5!`})
+    try {
+        await card.save()
+        res.status(200).send({message: `The progress for card with id ${cardId} was reduced by 5!`})
+    } catch (error) {
+        res.status(403).send({message: 'Your progress can\'t be below 0'})
+    }
 }
 
 const improveCardProgress = async (req, res, next) => {
     const cardId = req.params.cardId;
     const card = await Card.findByPk(cardId);
     card.progress += 5;
-    await card.save()
-    res.status(200).send({message: `The progress for card with id ${cardId} was increased by 5!`})
+    try {
+        await card.save()
+        res.status(200).send({message: `The progress for card with id ${cardId} was increased by 5!`})
+    } catch (error) {
+        res.status(403).send({message: 'Your progress can\'t be above 100'})
+    }
 }
 
 exports.editCardPage = editCardPage;
