@@ -28,14 +28,7 @@ app.use('', archivedCardsRouter.router)
 app.use(errorController.get404Page);
 
 app.listen(3000, () => {
-    const Card = require('./models/Card')
-    const StickerRow = require('./models/StickerRow')
-    const User = require('./models/User')
-    sequelize.sync()
-    setTimeout(() => User.create({
-        name: 'Anton',
-        surname: 'Skripin',
-        password: 'hello'
-    }), 3000)
-    console.log('Application is started on port 8000!');
+    require('./database/mongo_db')()
+    setTimeout(()=>    require('./database/mongo_db')(), 5000)
+    console.log('Application is started on port 3000!');
 })
