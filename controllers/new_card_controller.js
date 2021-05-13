@@ -1,5 +1,4 @@
 const Card = require('../models/Card')
-const User = require('../models/User')
 
 const getAddNewCardPage = (req, res, next) => {
     const path = 'add_new_card';
@@ -10,11 +9,10 @@ const getAddNewCardPage = (req, res, next) => {
 }
 
 const addNewCard = async (req, res, next) => {
-    const card = req.body;
-    await Card.createNewCard(card)
-    res.status(200).send({
-            message: 'Card is added successfully!'
-        })
+    const cardInput = req.body;
+    const card = new Card(cardInput.title, cardInput.description, 0, new Date().toDateString())
+    card.save().then(cardId => console.log(`Inserted card with id ${cardId}`))
+    
 }
 
 

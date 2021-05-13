@@ -10,7 +10,7 @@ const archivedCardsRouter = require('./routes/archived_cards')
 
 const errorController = require('./controllers/error_controller')
 
-const sequelize = require('./database/database')
+const mongoConnect = require('./database/mongo_db').mongoConnect
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -21,14 +21,13 @@ app.use("/add_cards", express.static("public"));
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use('', newCardRouter.router);
-app.use('', allCardsRouter.router);
-app.use('', cardRouter.router);
-app.use('', archivedCardsRouter.router)
+// app.use('', allCardsRouter.router);
+// app.use('', cardRouter.router);
+// app.use('', archivedCardsRouter.router)
 
 app.use(errorController.get404Page);
 
 app.listen(3000, () => {
-    require('./database/mongo_db')()
-    setTimeout(()=>    require('./database/mongo_db')(), 5000)
+    mongoConnect()
     console.log('Application is started on port 3000!');
 })
