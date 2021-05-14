@@ -1,5 +1,5 @@
 const Card = require('../models/Card')
-const StickerRow = require('../models/StickerRow')
+const Row = require('../models/Row')
 
 const getAllCardsPage = async (req, res, next) => {
     const path = 'all_cards';

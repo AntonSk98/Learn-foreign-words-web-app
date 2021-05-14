@@ -1,5 +1,5 @@
 const Card = require('../models/Card')
-const StickerRow = require('../models/StickerRow')
+const StickerRow = require('../models/Row')
 const { Op } = require('sequelize')
 
 const getArchivedCardsPage = async (req, res, next) => {

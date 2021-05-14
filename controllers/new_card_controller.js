@@ -1,4 +1,5 @@
 const Card = require('../models/Card')
+const Row = require('../models/Row')
 
 const getAddNewCardPage = (req, res, next) => {
     const path = 'add_new_card';
@@ -11,8 +12,16 @@ const getAddNewCardPage = (req, res, next) => {
 const addNewCard = async (req, res, next) => {
     const cardInput = req.body;
     const card = new Card(cardInput.title, cardInput.description, 0, new Date().toDateString())
-    card.save().then(cardId => console.log(`Inserted card with id ${cardId}`))
-    
+    const cardId = await card.save()
+    cardInput.rows.forEach(row => {
+        new Row(
+            row.word || '',
+            row.translation || '',
+            row.example || '',
+            cardId
+        ).save()
+    })
+    console.log('doneee') 
 }
 
 

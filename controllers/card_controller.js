@@ -1,7 +1,6 @@
-// const Card = require('../models/card')
 const { getCardWithoutStickerById: getEditedCardWithoutStickerById } = require('../models/Card');
 const Card = require('../models/Card')
-const StickerRow = require('../models/StickerRow')
+const StickerRow = require('../models/Row')
 
 const editCardPage = async (req, res, next) => {
     const id = req.params.cardId;
