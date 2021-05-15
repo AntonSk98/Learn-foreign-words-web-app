@@ -1,10 +1,9 @@
-const { getCardWithoutStickerById: getEditedCardWithoutStickerById } = require('../models/Card');
 const Card = require('../models/Card')
 const StickerRow = require('../models/Row')
 
 const editCardPage = async (req, res, next) => {
     const id = req.params.cardId;
-    const card = await Card.getCardWithStickerById(id)
+    const card = await Card.getCardWithRowsById(id)
     res.render('new_edit_card', {
         path: '/edit_card_page',
         card: card
@@ -13,15 +12,13 @@ const editCardPage = async (req, res, next) => {
 
 const editCard = async (req, res, next) => {
     const updatedCard = req.body
-    const card = await Card.getCardWithoutStickerById(updatedCard.id)
-    await card.updateCard(updatedCard)
-    res.status(200).send({message: `Card with id ${card.id} is successfully updated!`})
+    await Card.updateCard(updatedCard)
+    res.status(200).send({message: `Card with id ${updatedCard.id} is successfully updated!`})
 }
 
 const archiveCard = async (req, res, next) => {
     const cardId = req.params.cardId;
-    const card = await Card.getCardWithStickerById(cardId)
-    await card.archiveCard()
+    await Card.archiveCardById(cardId)
     res.status(200).send({message: `Card is put into arcive!`})
 }
 
@@ -33,40 +30,39 @@ const removeCard = async (req, res, next) => {
 
 const unarchiveCard = async (req, res, next) => {
     const cardId = req.params.cardId;
-    const card = await Card.getCardWithoutStickerById(cardId)
-    await card.unarchiveCard(cardId)
+    await Card.unarchiveCardById(cardId)
     res.status(200).send({message: `Card with id ${cardId} us successfully unarchived! The progress is reset...`})
 }
 
-const learnCardPage = async (req, res, next) => {
-    const cardId = req.params.cardId;
-    const card = await Card.getCardWithStickerById(cardId)
-    res.render('learn_card.ejs', {
-        path: '/learn_card_page',
-        title: 'Learn card page',
-        card: card
-    })
-}
+// const learnCardPage = async (req, res, next) => {
+//     const cardId = req.params.cardId;
+//     const card = await Card.getCardWithStickerById(cardId)
+//     res.render('learn_card.ejs', {
+//         path: '/learn_card_page',
+//         title: 'Learn card page',
+//         card: card
+//     })
+// }
 
-const reduceCardProgress = async (req, res, next) => {
-    const cardId = req.params.cardId;
-    const card = await Card.getCardWithoutStickerById(cardId)
-    const result = await card.reduceCardProgress()
-    res.status(result.status).send(result.message)
-}
+// const reduceCardProgress = async (req, res, next) => {
+//     const cardId = req.params.cardId;
+//     const card = await Card.getCardWithoutStickerById(cardId)
+//     const result = await card.reduceCardProgress()
+//     res.status(result.status).send(result.message)
+// }
 
-const improveCardProgress = async (req, res, next) => {
-    const cardId = req.params.cardId;
-    const card = await Card.getCardWithoutStickerById(cardId)
-    const result = await card.increaseCardProgress()
-    res.status(result.status).send(result.message)
-}
+// const improveCardProgress = async (req, res, next) => {
+//     const cardId = req.params.cardId;
+//     const card = await Card.getCardWithoutStickerById(cardId)
+//     const result = await card.increaseCardProgress()
+//     res.status(result.status).send(result.message)
+// }
 
 exports.editCardPage = editCardPage;
 exports.editCard = editCard;
 exports.archiveCard = archiveCard;
 exports.removeCard = removeCard;
 exports.unarchiveCard = unarchiveCard;
-exports.learnCardPage = learnCardPage;
-exports.reduceCardProgress = reduceCardProgress;
-exports.improveCardProgress = improveCardProgress;
+// exports.learnCardPage = learnCardPage;
+// exports.reduceCardProgress = reduceCardProgress;
+// exports.improveCardProgress = improveCardProgress;

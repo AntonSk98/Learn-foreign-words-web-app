@@ -46,7 +46,6 @@ const showFailureNotification = () => {
 }
 
 const importCard = (card) => {
-    console.log(card)
     prepareTextFileToDownload(card)
     hideImportCardButton(card._id)
     

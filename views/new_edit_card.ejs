@@ -24,7 +24,7 @@
                                 name="title" class="add-new-card__basic__text add-new-card__custom__input"
                                 placeholder="Provide a title"
                                 <% if (card) { %>
-                                    value= <%= card.title %> 
+                                    value= '<%= card.title %>' 
                                 <% } %>
                             >
                         </div>
@@ -48,7 +48,7 @@
                                 <th>Translation</th>
                                 <th>Example</th>
                             </tr>
-                            <% if (!card || !card.stickerRows || !card.stickerRows?.length) { %>
+                            <% if (!card || !card.rows || !card.rows?.length) { %>
                                 <tr class="sticker">
                                     <td style="display: none"><input type="hidden" name="id"></td>
                                     <td><input type="text" class="add-new-card__sticker__input add-new-card__custom__input" name="word" placeholder="Type here a word"></td>
@@ -56,7 +56,7 @@
                                     <td class="add-new-card__sticker__example"><input type="text" class="add-new-card__sticker__input add-new-card__custom__input" name="example" placeholder="Provide an example"></td>
                                 </tr>
                             <% } else { %>
-                                <% for (const[index, sticker] of card.stickerRows.entries()) { %>
+                                <% for (const[index, sticker] of card.rows.entries()) { %>
                                     <tr class="sticker" id="<%=index%>">
                                         <td style="display: none">
                                             <input type="hidden" name="id" value="<%= sticker._id %>">
@@ -119,7 +119,7 @@
             <span>Do you want to continue?</span>
             <div class="notification-buttons">
                 <% if (card) { %>
-                    <button id='save' onclick="stillSubmitForm(false, <%=card._id%>)">Still save!</button>
+                    <button id='save' onclick="stillSubmitForm(false, '<%=card._id%>')">Still save!</button>
                 <% } else { %>
                     <button id='save' onclick="stillSubmitForm(true)">Still save!</button>
                 <% } %>

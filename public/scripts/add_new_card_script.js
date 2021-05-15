@@ -24,7 +24,6 @@ const submitCard = (newCard, card) => {
     const formElement = document.getElementById("submit_form");
     hideWarningNotification()
     constructBody(formElement, card);
-    console.log(body)
     if (validatedSticker(formElement.id, formElement.word, formElement.translation, formElement.example)) {
         let url
         newCard ? url = '/add_new_card' : url = '/edit_card'
@@ -52,7 +51,6 @@ const validatedSticker = ((idSection, wordSection, translationSection, exampleSe
 const getRowsFromStickerField = ((idSection, wordSection, translationSection, exampleSection) => {
     const rows = []
     idSection = convertSectionToArray(idSection)
-    console.log(idSection)
     wordSection = convertSectionToArray(wordSection)
     translationSection = convertSectionToArray(translationSection)
     exampleSection = convertSectionToArray(exampleSection)
@@ -76,7 +74,7 @@ const convertSectionToArray = (section) => {
 
 const constructBody = (formElement, card) => {
     body = {
-        id: card?.id,
+        id: card?._id,
         title: formElement.title.value,
         description: formElement.description.value,
         rows: getRowsFromStickerField(formElement.id, formElement.word, formElement.translation, formElement.example),
