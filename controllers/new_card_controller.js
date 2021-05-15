@@ -21,7 +21,7 @@ const addNewCard = async (req, res, next) => {
             cardId
         ).save()
     })
-    console.log('doneee') 
+    res.status(200).send({message: 'The card is created successfully'})
 }
 
 

@@ -29,8 +29,8 @@
                         <td class="words"><%= archivedCard.stickerRows.length %></td>
                         <td class="actions">
                             <button onclick="viewCard(<%= JSON.stringify(archivedCard) %>)">View</button>
-                            <button onclick="unarchiveCard(<%= archivedCard.id %>)">Unarchive</button>
-                            <button onclick="removeCard(<%= archivedCard.id %>)">Remove</button>
+                            <button onclick="unarchiveCard(<%= archivedCard._id %>)">Unarchive</button>
+                            <button onclick="removeCard(<%= archivedCard._id %>)">Remove</button>
                         </td>
                     </tr>
                 <% } %>

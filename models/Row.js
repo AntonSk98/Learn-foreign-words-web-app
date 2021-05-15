@@ -18,6 +18,11 @@ class Row {
             throw new Error(err)
         }
     }
+
+    static async getRowsByCardId(cardId) {
+        const db = getDb();
+        return await db.collection('sticker_row').find({ cardId: cardId}).project({word: 1, translation: 1, example: 1, _id: 0}).toArray()
+    }
 }
 
 module.exports = Row

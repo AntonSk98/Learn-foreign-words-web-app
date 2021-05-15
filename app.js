@@ -21,7 +21,7 @@ app.use("/add_cards", express.static("public"));
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use('', newCardRouter.router);
-// app.use('', allCardsRouter.router);
+app.use('', allCardsRouter.router);
 // app.use('', cardRouter.router);
 // app.use('', archivedCardsRouter.router)
 

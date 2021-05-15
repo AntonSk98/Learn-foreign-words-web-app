@@ -17,6 +17,11 @@ class Card {
             throw new Error(err)
         }
     }
+
+    static async getAllActiveCards() {
+        const db = getDb();
+        return await db.collection('card').find({progress: { $ne: 100 }}).toArray();
+    }
 }
 
 module.exports = Card;

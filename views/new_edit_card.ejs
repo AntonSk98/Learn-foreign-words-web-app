@@ -59,7 +59,7 @@
                                 <% for (const[index, sticker] of card.stickerRows.entries()) { %>
                                     <tr class="sticker" id="<%=index%>">
                                         <td style="display: none">
-                                            <input type="hidden" name="id" value="<%= sticker.id %>">
+                                            <input type="hidden" name="id" value="<%= sticker._id %>">
                                         </td>
                                         <td>
                                             <input type="text"
@@ -119,7 +119,7 @@
             <span>Do you want to continue?</span>
             <div class="notification-buttons">
                 <% if (card) { %>
-                    <button id='save' onclick="stillSubmitForm(false, <%=card.id%>)">Still save!</button>
+                    <button id='save' onclick="stillSubmitForm(false, <%=card._id%>)">Still save!</button>
                 <% } else { %>
                     <button id='save' onclick="stillSubmitForm(true)">Still save!</button>
                 <% } %>
