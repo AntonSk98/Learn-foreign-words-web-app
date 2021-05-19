@@ -13,10 +13,10 @@ router.get('/remove_card/:cardId', cardController.removeCard)
 
 router.get('/unarchive_card/:cardId', cardController.unarchiveCard)
 
-// router.get('/learn_card/:cardId', cardController.learnCardPage)
+router.get('/learn_card/:cardId', cardController.learnCardPage)
 
-// router.post('/reduce_card_progress/:cardId', cardController.reduceCardProgress)
+router.post('/reduce_card_progress/:cardId', cardController.reduceCardProgress)
 
-// router.post('/improve_card_progress/:cardId', cardController.improveCardProgress)
+router.post('/improve_card_progress/:cardId', cardController.improveCardProgress)
 
 exports.router = router;

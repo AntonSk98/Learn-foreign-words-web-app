@@ -85,6 +85,44 @@ class Card {
         )
     }
 
+    static async improveCardProgressById(cardId) {
+        const db = getDb();
+        const result = await db.collection('card').updateOne(
+            { _id: new ObjectId(cardId), progress: {$lt: 100}},
+            {
+                $inc: { progress: 5}
+            }
+        )
+        if (result.modifiedCount === 0)
+            return {
+                status: 403,
+                message: 'You can\'t set score above 100!'
+            }
+        return {
+            status: 200,
+            message: 'Good job!'
+        }
+    }
+
+    static async reduceCardProgressById(cardId) {
+        const db = getDb();
+        const result = await db.collection('card').updateOne(
+            { _id: new ObjectId(cardId), progress: {$gt: 0}},
+            {
+                $inc: {progress: -5}
+            }
+        )
+        if (result.modifiedCount === 0)
+            return {
+                status: 403,
+                message: 'You can\'t set score below 0!'
+            }
+        return {
+            status: 200,
+            message: 'Try better next time!'
+        }
+    }
+
 }
 
 const updateCardProgressById = async (cardId, progress) => {

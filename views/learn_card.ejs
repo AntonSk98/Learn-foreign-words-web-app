@@ -28,9 +28,9 @@
                 </div>
             </div>
             <div class="card-sticker">
-                <% if (card.stickerRows.length) { %>
+                <% if (card.rows.length) { %>
                     <div class="subtitle">Here is your sticker. Good luck and have fun!</div>
-                    <% for (row of card.stickerRows) { %>
+                    <% for (row of card.rows) { %>
                         <div class="row">
                             <div><%= row.word || 'No word' %></div>
                             <div><%= row.translation || 'No translation' %></div>
@@ -38,8 +38,8 @@
                         </div>
                     <% } %>
                     <div class="action-section">
-                        <button onclick="improveCardProgress(<%= card._id %>)">Improved! :-)</button>
-                        <button onclick="reduceCardProgress(<%= card._id %>)">Worsened... :-(</button>
+                        <button onclick="improveCardProgress('<%= card._id %>')">Improved! :-)</button>
+                        <button onclick="reduceCardProgress('<%= card._id %>')">Worsened... :-(</button>
                     </div>
                 <% } else { %>
                     <div class="empty-card">You did not add any words yet to this card!</div>

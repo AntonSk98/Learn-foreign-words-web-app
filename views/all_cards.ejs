@@ -43,7 +43,7 @@
                             </div>
                             <div class="card-buttons">
                                 <div>
-                                    <button class="learn-button" onclick="learnCard(<%= card._id %>)">Learn</button>
+                                    <button class="learn-button" onclick="learnCard('<%= card._id %>')">Learn</button>
                                     <form action="/edit_card/<%= card._id %>", method="POST">
                                         <button class="edit-button" type="submit"">Edit</button>
                                     </form>

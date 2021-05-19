@@ -34,35 +34,33 @@ const unarchiveCard = async (req, res, next) => {
     res.status(200).send({message: `Card with id ${cardId} us successfully unarchived! The progress is reset...`})
 }
 
-// const learnCardPage = async (req, res, next) => {
-//     const cardId = req.params.cardId;
-//     const card = await Card.getCardWithStickerById(cardId)
-//     res.render('learn_card.ejs', {
-//         path: '/learn_card_page',
-//         title: 'Learn card page',
-//         card: card
-//     })
-// }
+const learnCardPage = async (req, res, next) => {
+    const cardId = req.params.cardId;
+    const card = await Card.getCardWithRowsById(cardId)
+    res.render('learn_card.ejs', {
+        path: '/learn_card_page',
+        title: 'Learn card page',
+        card: card
+    })
+}
 
-// const reduceCardProgress = async (req, res, next) => {
-//     const cardId = req.params.cardId;
-//     const card = await Card.getCardWithoutStickerById(cardId)
-//     const result = await card.reduceCardProgress()
-//     res.status(result.status).send(result.message)
-// }
+const reduceCardProgress = async (req, res, next) => {
+    const cardId = req.params.cardId;
+    const result = await Card.reduceCardProgressById(cardId)
+    res.status(result.status).send(result.message)
+}
 
-// const improveCardProgress = async (req, res, next) => {
-//     const cardId = req.params.cardId;
-//     const card = await Card.getCardWithoutStickerById(cardId)
-//     const result = await card.increaseCardProgress()
-//     res.status(result.status).send(result.message)
-// }
+const improveCardProgress = async (req, res, next) => {
+    const cardId = req.params.cardId;
+    const result = await Card.improveCardProgressById(cardId)
+    res.status(result.status).send(result.message)
+}
 
 exports.editCardPage = editCardPage;
 exports.editCard = editCard;
 exports.archiveCard = archiveCard;
 exports.removeCard = removeCard;
 exports.unarchiveCard = unarchiveCard;
-// exports.learnCardPage = learnCardPage;
-// exports.reduceCardProgress = reduceCardProgress;
-// exports.improveCardProgress = improveCardProgress;
+exports.learnCardPage = learnCardPage;
+exports.reduceCardProgress = reduceCardProgress;
+exports.improveCardProgress = improveCardProgress;
