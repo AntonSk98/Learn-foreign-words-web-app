@@ -1,166 +1,146 @@
-const Sequelize = require('sequelize')
-const { Op } = require("sequelize");
+const getDb = require('../database/mongo_db').getDb;
+const ObjectId = require('mongodb').ObjectId
+const Row = require('./Row')
 
-const sequelize = require('../database/database')
-
-const StickerRow = require('./StickerRow')
-
-class Card extends Sequelize.Model {
-
-    static async getAllActiveCards() {
-        return await Card.findAll(
-            {
-                where:
-                    {
-                        userId: 1,
-                        progress: {
-                            [Op.ne]: 100
-                        }
-                    },
-                include: {
-                    model: StickerRow,
-                    attributes: ['word', 'translation', 'example']
-                }
-            })
-    };
-
-    static async getAllArchivedCards() {
-        return await Card.findAll({
-            where: {
-                userId: 1,
-                progress: {
-                    [Op.eq]: 100
-                }
-            },
-            include: StickerRow
-        })
+class Card {
+    constructor(title, description, progress, createdAt) {
+        this.title = title;
+        this.description = description;
+        this.progress = progress;
+        this.createdAt = createdAt;
     }
 
-    static async getCardWithStickerById(id) {
-        return await Card.findByPk(id, {include: StickerRow})
+    async save() {
+        const db = getDb();
+        try {
+            const commandResult = await db.collection('card').insertOne(this)
+            return commandResult.insertedId
+        } catch(err) {
+            throw new Error(err)
+        }
+    }
+
+    static async getAllActiveCardsWithRows() {
+        const db = getDb();
+        const cards = await db.collection('card').find({progress: { $ne: 100 }}).toArray();
+        await attachRowsToCards(cards)
+        return cards
+    }
+
+    static async getAllArchivedCardsWithRows() {
+        const db = getDb();
+        const cards = await db.collection('card').find({progress: { $eq: 100 }}).toArray();
+        await attachRowsToCards(cards)
+        return cards
+        
+    }
+
+    static async archiveCardById(cardId) {
+        await updateCardProgressById(cardId, 100)
+    }
+
+    static async unarchiveCardById(cardId) {
+        await updateCardProgressById(cardId, 0)
     }
     
-    static async getCardWithoutStickerById(id) {
-        return await Card.findByPk(id)
-    }
-
-    static async removeCardById(id) {
-        return await Card.destroy({
-            where: {
-                id: id
-            }
-        })
-    }
-
-    static async createNewCard(card) {
-        const storedCard = await Card.create({
-            title: card.title,
-            description: card.description,
-            progress: 0,
-            userId: 1,
-        })
-        card.rows.forEach(row => {
-            storedCard.createStickerRow({
-                word: row.word || '',
-                translation: row.translation || '',
-                example: row.example || ''
-            })
-        })
-    }
-
-    async archiveCard() {
-        this.progress = 100;
-        return await this.save()
-    }
-
-    async unarchiveCard() {
-        this.progress = 0;
-        return await this.save()
-    }
-
-    async updateCard(updatedCard) {
-        this.title = updatedCard.title;
-        this.description = updatedCard.description;
-        await StickerRow.destroy({
-            where: {
-                cardId: this.id
-            }
-        })
-        await updatedCard.rows.forEach(row => StickerRow.create({
-            word: row.word || '',
-            translation: row.translation || '',
-            example: row.example || '',
-            cardId: this.id
-        }))
-        return await this.save()
-    }
-
-    async reduceCardProgress() {
-        this.progress -= 5;
+    static async removeCardById(cardId) {
+        const db = getDb();
         try {
-            await this.save();
-            return {
-                status: 200,
-                message: `The progress for card with id ${this.id} was reduced by 5!`
+            await Row.deleteRowsByCardId(cardId)
+        } catch (err) {
+            throw new Error(err)
+        }
+        await db.collection('card').deleteOne({_id: new ObjectId(cardId)})
+    }
+
+    static async getCardWithRowsById(cardId) {
+        const db = getDb();
+        const card = await db.collection('card').find({_id: new ObjectId(cardId)}).next()
+        card.rows = await Row.getRowsByCardId(card._id)
+        return card;
+    }
+
+    static async updateCard(updatedCard) {
+        const db = getDb();
+        const oldRows = await Row.getRowsByCardId(updatedCard.id)
+        const oldRowIds = oldRows.map(oldRow => oldRow._id)
+        const updatedRowIds = updatedCard.rows.map(row => row.id)
+        const removedRowsIds = oldRowIds.filter(oldRowId => !updatedRowIds.includes(String(oldRowId)))
+        await Row.deleteRowsByIds(removedRowsIds)
+        for (const updatedRow of updatedCard.rows) {
+            if (updatedRow.id)
+                await Row.updateRow(updatedCard.id, updatedRow)
+            else await Row.createRow(updatedCard.id, updatedRow)
+        }
+        await db.collection('card').updateOne(
+            {
+                _id: new ObjectId(updatedCard.id)
+            },
+            {
+                $set: {
+                    title: updatedCard.title,
+                    description: updatedCard.description
+                }
             }
-        } catch (error) {
+        )
+    }
+
+    static async improveCardProgressById(cardId) {
+        const db = getDb();
+        const result = await db.collection('card').updateOne(
+            { _id: new ObjectId(cardId), progress: {$lt: 100}},
+            {
+                $inc: { progress: 5}
+            }
+        )
+        if (result.modifiedCount === 0)
             return {
                 status: 403,
-                message: `Your progress can\'t be below 0`
+                message: 'You can\'t set score above 100!'
             }
+        return {
+            status: 200,
+            message: 'Good job!'
         }
     }
 
-    async increaseCardProgress() {
-        this.progress +=5;
-        try {
-            await this.save()
-            return {
-                status: 200,
-                message: `The progress for card with id ${this.id} was increased by 5!`
+    static async reduceCardProgressById(cardId) {
+        const db = getDb();
+        const result = await db.collection('card').updateOne(
+            { _id: new ObjectId(cardId), progress: {$gt: 0}},
+            {
+                $inc: {progress: -5}
             }
-        } catch (error) {
+        )
+        if (result.modifiedCount === 0)
             return {
                 status: 403,
-                message: `Your progress can\'t be above 100`
+                message: 'You can\'t set score below 0!'
             }
+        return {
+            status: 200,
+            message: 'Try better next time!'
         }
     }
+
 }
 
-Card.init({
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
-    title: Sequelize.STRING,
-    description: Sequelize.TEXT,
-    progress: {
-        type: Sequelize.INTEGER,
-        validate: {
-            max: 100,
-            min: 0
+const updateCardProgressById = async (cardId, progress) => {
+    const db = getDb();
+    await db.collection('card').updateOne(
+        { _id: new ObjectId(cardId) },
+        {
+            $set: { progress: progress }
         }
-    },
-    createdAt: {
-        type: Sequelize.DATEONLY
+    )
+}
+
+const attachRowsToCards = async cards => {
+    for (const card of cards) {
+        const row = await Row.getRowsByCardId(card._id)
+        card.rows = [...row]
     }
+    return cards;
+}
 
-}, {
-    sequelize,
-    modelName: 'card'
-})
-
-Card.hasMany(StickerRow, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-    foreignKey: {
-        allowNull: false,
-    }
-})
-StickerRow.belongsTo(Card)
-
-
-module.exports = Card
+module.exports = Card;

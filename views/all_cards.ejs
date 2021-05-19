@@ -43,16 +43,16 @@
                             </div>
                             <div class="card-buttons">
                                 <div>
-                                    <button class="learn-button" onclick="learnCard(<%= card.id %>)">Learn</button>
-                                    <form action="/edit_card/<%= card.id %>", method="POST">
+                                    <button class="learn-button" onclick="learnCard('<%= card._id %>')">Learn</button>
+                                    <form action="/edit_card/<%= card._id %>", method="POST">
                                         <button class="edit-button" type="submit"">Edit</button>
                                     </form>
-                                    <button id="import-card-<%= card.id %>" class="import-button" onclick="importCard(<%= JSON.stringify(card) %>, this)">Import</button>
-                                    <a id="download-card-<%= card.id %>" class="download-card-button" onclick="hideDownloadButtonShowImport(<%=card.id%>)">Download!</a>
+                                    <button id="import-card-<%= card._id %>" class="import-button" onclick="importCard(<%= JSON.stringify(card) %>, this)">Import</button>
+                                    <a id="download-card-<%= card._id %>" class="download-card-button" onclick="hideDownloadButtonShowImport('<%=card._id%>')">Download!</a>
                                 </div>
                                 <div>
-                                    <button class="archive-button" onclick="archiveCard(<%=card.id%>)">Archive</button>
-                                    <button class="remove-button" onclick="removeCard(<%=card.id%>)">Remove</button>
+                                    <button class="archive-button" onclick="archiveCard('<%=card._id%>')">Archive</button>
+                                    <button class="remove-button" onclick="removeCard('<%=card._id%>')">Remove</button>
                                 </div>
                             </div>
                         </div>

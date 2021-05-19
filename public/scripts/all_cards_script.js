@@ -46,11 +46,10 @@ const showFailureNotification = () => {
 }
 
 const importCard = (card) => {
-
     prepareTextFileToDownload(card)
-    hideImportCardButton(card.id)
+    hideImportCardButton(card._id)
     
-    setTimeout(() => hideDownloadButtonShowImport(card.id), 5000)
+    setTimeout(() => hideDownloadButtonShowImport(card._id), 5000)
 }
 
 const hideDownloadButtonShowImport = cardId => {
@@ -67,7 +66,7 @@ const hideImportCardButton = cardId => {
 
 const prepareTextFileToDownload = card => {
     const txtFile = new Blob([JSON.stringify(card, null, "\t")], {type: 'application/json'})
-    const downlaodCardLink = document.getElementById(`download-card-${card.id}`)
+    const downlaodCardLink = document.getElementById(`download-card-${card._id}`)
     downlaodCardLink.href = URL.createObjectURL(txtFile)
     downlaodCardLink.download = `${card.title || 'noname_card'}.txt`
     downlaodCardLink.style.display = 'block'

@@ -1,0 +1,4 @@
+{
+    "connection_string": "mongodb+srv://<password>:skripinan98@cluster0.jxqqo.mongodb.net/german_app?retryWrites=true&w=majority"
+}
+

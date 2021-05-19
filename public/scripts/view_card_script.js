@@ -16,13 +16,12 @@ const setViewCardContent = (card) => {
     cardViewTitle.innerText = card.title || 'No title provided'
     cardViewDescription.innerText = card.description || 'No description provided'
 
-    if (!card.stickerRows.length) {
+    if (!card.rows.length) {
         cardViewStickerBody.insertAdjacentHTML('afterend', "<div class='clear-after-close'>This card does not contain any word</div>")
         return;
     }
     
-    card.stickerRows.slice().reverse().forEach(row => {
-        console.log({...row})
+    card.rows.slice().reverse().forEach(row => {
         wordTitle.insertAdjacentHTML('afterend', `<div class='clear-after-close'>${row.word}</div>`)
         translationTitle.insertAdjacentHTML('afterend', `<div class='clear-after-close'>${row.translation}</div>`)
     });
