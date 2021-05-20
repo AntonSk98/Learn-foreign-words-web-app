@@ -1,5 +1,4 @@
 const Card = require('../models/Card')
-const Row = require('../models/Row')
 
 const getAllCardsPage = async (req, res, next) => {
     const path = 'all_cards';
