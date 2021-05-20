@@ -1,8 +1,16 @@
-const mongoose = require('mongoose')
-const config = require('./noSql_config.json')
+const Sequelize = require ('sequelize')
 
-const getMongooseConnection = async () => {
-    return await mongoose.connect(config.connection_string, {useNewUrlParser: true, useUnifiedTopology: true})
-}
+const config = require('./config.json')
 
-module.exports = getMongooseConnection;
+const sequelize = new Sequelize({
+    database: config.database,
+    username: config.username,
+    password: config.password,
+    host: config.host,
+    dialect: config.dialect,
+    port: config.port,
+    logging: false
+})
+
+
+module.exports = sequelize;
