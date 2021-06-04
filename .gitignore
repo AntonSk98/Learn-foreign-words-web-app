@@ -3,4 +3,4 @@ data/products.json
 
 database/config.json
 
-database/noSql_config.json
+database/database_config.json

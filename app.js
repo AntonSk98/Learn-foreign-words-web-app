@@ -10,7 +10,7 @@ const archivedCardsRouter = require('./routes/archived_cards')
 
 const errorController = require('./controllers/error_controller')
 
-const mongoConnect = require('./database/mongo_db').mongoConnect
+const connectToDatabase = require('./database/mongoose')
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -27,7 +27,7 @@ app.use('', archivedCardsRouter.router)
 
 app.use(errorController.get404Page);
 
-app.listen(3000, () => {
-    mongoConnect()
+app.listen(3000, async () => {
+    await connectToDatabase()
     console.log('Application is started on port 3000!');
 })
